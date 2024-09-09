@@ -7,6 +7,7 @@ dotenv.config();
 // Get Routes
 
 const userPath = require("./routes/user");
+const authPath = require("./routes/auth");
 
 // PORT SERVER
 
@@ -27,8 +28,9 @@ app.use(express.json());
 // Routes
 
 app.use("/api/user", userPath);
+app.use("/api/auth", authPath);
 // Server Running
 
 app.listen(port, () => {
-  console.log(`Server listening on ${port}}`);
+  console.log(`Server listening on ${port}`);
 });
