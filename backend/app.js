@@ -4,6 +4,10 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+// Get Routes
+
+const userPath = require("./routes/user");
+
 // PORT SERVER
 
 const port = process.env.Port || 5000;
@@ -19,6 +23,10 @@ mongoose
 const app = express();
 // Apply Middlewares
 app.use(express.json());
+
+// Routes
+
+app.use("/api/user", userPath);
 // Server Running
 
 app.listen(port, () => {
