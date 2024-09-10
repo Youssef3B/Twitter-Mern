@@ -8,6 +8,7 @@ dotenv.config();
 
 const userPath = require("./routes/user");
 const authPath = require("./routes/auth");
+const commentsPath = require("./routes/comments");
 
 // PORT SERVER
 
@@ -29,6 +30,7 @@ app.use(express.json());
 
 app.use("/api/user", userPath);
 app.use("/api/auth", authPath);
+app.use("/api/comments", commentsPath);
 // Server Running
 
 app.listen(port, () => {
