@@ -36,4 +36,30 @@ router.post("/register", async (req, res) => {
       .json({ message: "Error creating user", error: error.message });
   }
 });
+
+/**
+ * @desc Login
+ * @route /api/auth/login
+ * @method POST
+ */
+
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid Email or Password" });
+    }
+    const ValidPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!ValidPassword) {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+    const token = user.generateAuthToken();
+    res.status(200).json({ data: token, message: "logged in successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 module.exports = router;
