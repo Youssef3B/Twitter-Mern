@@ -1,9 +1,18 @@
+import { Link } from "react-router-dom";
+
 function Register() {
   return (
     <>
       <div className="grid lg:grid-cols-2 h-[100vh]">
+        <div className="hidden lg:block">
+          <img
+            className="w-full h-[100vh] object-cover object-center"
+            src="/login.jpeg"
+            alt=""
+          />
+        </div>
         <div className="bg-neutral-950 h-full flex justify-center  text-white">
-          <div className="flex flex-col my-48">
+          <div className="flex flex-col my-36">
             <img className="w-36 my-8 mx-auto" src="/Twitter-Logo.png" alt="" />
             <h2 className="text-center font-bold text-4xl mb-4">
               Create a new account
@@ -13,7 +22,17 @@ function Register() {
             </p>
             <form className="mt-4" action="">
               <div className="flex flex-col space-y-3 mb-4">
-                <label className="font-semibold" htmlFor="email">
+                <label className="font-semibold" htmlFor="userName">
+                  UserName
+                </label>
+                <input
+                  className="bg-neutral-700 p-2 rounded-md border-none outline-none"
+                  type="text"
+                  placeholder="Daniel Park"
+                />
+              </div>
+              <div className="flex flex-col space-y-3 mb-4">
+                <label className="font-semibold" htmlFor="userName">
                   Email
                 </label>
                 <input
@@ -38,18 +57,13 @@ function Register() {
                 </button>
               </div>
               <p className="text-center mt-5 font-semibold">
-                Don&apos;t have account?{" "}
-                <span className="text-sky-400">Sign up</span>
+                Already have an account ?
+                <Link to={"/login"}>
+                  <span className="text-sky-400"> Sign up</span>
+                </Link>
               </p>
             </form>
           </div>
-        </div>
-        <div className="hidden lg:block">
-          <img
-            className="w-full h-[100vh] object-cover object-center"
-            src="/register.jpeg"
-            alt=""
-          />
         </div>
       </div>
     </>
