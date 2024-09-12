@@ -12,6 +12,7 @@ const commentsPath = require("./routes/comments");
 const followersPath = require("./routes/follower");
 const likesPath = require("./routes/like");
 const postsPath = require("./routes/post");
+const savedPath = require("./routes/saved");
 
 // PORT SERVER
 
@@ -37,6 +38,7 @@ app.use("/api/comments", commentsPath);
 app.use("/api/followers", followersPath);
 app.use("/api/likes", likesPath);
 app.use("/api/poste", postsPath);
+app.use("/api/saves", savedPath);
 // Server Running
 
 app.listen(port, () => {
