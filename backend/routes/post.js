@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
       user: req.body.user,
       title: req.body.title,
       image: req.body.image,
+      likes: req.body.likes,
     });
     const result = await post.save();
     if (result) {
@@ -78,6 +79,7 @@ router.put("/:id", async (req, res) => {
           user: req.body.user,
           title: req.body.title,
           image: req.body.image,
+          likes: req.body.likes,
         },
       },
       { new: true }
