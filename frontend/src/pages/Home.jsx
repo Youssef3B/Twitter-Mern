@@ -1,5 +1,6 @@
 import Input from "../components/Input";
 import MenuPc from "../components/MenuPc";
+import Posts from "../components/Posts";
 import WhoToFollow from "../components/WhoToFollow";
 
 function Home() {
@@ -11,6 +12,7 @@ function Home() {
           <div className="divide-y divide-gray-400 divide-solid">
             <h1 className="font-bold text-2xl my-3">Home</h1>
             <Input />
+            <Posts />
           </div>
         </div>
         <WhoToFollow />

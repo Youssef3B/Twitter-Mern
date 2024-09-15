@@ -1,6 +1,6 @@
 function Input() {
   return (
-    <div className="pt-4">
+    <div className="py-4">
       <div className="grid grid-cols-8">
         <div className="col-span-1">
           <img
