@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import AppLayout from "./pages/AppLayout";
 import Profile from "./pages/Profile";
+import Explore from "./pages/Explore";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="explore" element={<Explore />} />
           </Route>
         </Routes>
       </BrowserRouter>

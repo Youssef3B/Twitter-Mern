@@ -5,7 +5,7 @@ import { CiBookmark } from "react-icons/ci";
 function Post() {
   return (
     <>
-      <div className="my-8 border-2 p-4 rounded-lg">
+      <div className="my-4 border-2 p-4 rounded-lg">
         <div className="flex items-center space-x-3">
           <div className="">
             <img

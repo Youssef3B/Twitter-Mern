@@ -19,13 +19,14 @@ function MenuPc() {
               </p>
             </li>
           </Link>
-
-          <li className="">
-            <p className="flex items-center space-x-3 text-2xl font-bold">
-              <MdOutlineExplore size={24} />
-              <span>Explore</span>
-            </p>
-          </li>
+          <Link to={"explore"}>
+            <li className="">
+              <p className="flex items-center space-x-3 text-2xl font-bold">
+                <MdOutlineExplore size={24} />
+                <span>Explore</span>
+              </p>
+            </li>
+          </Link>
           <li className="">
             <p className="flex items-center space-x-3 text-2xl font-bold">
               <IoIosNotificationsOutline size={24} />
