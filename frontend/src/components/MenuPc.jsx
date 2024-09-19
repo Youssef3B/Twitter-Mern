@@ -44,12 +44,15 @@ function MenuPc() {
               <span>Saves</span>
             </p>
           </li>
-          <li className="">
-            <p className="flex items-center space-x-3 text-2xl font-bold">
-              <LuUser2 />
-              <span>Profile</span>
-            </p>
-          </li>
+          <Link to={"profile"}>
+            <li className="hover:text-sky-600 transition-all">
+              <p className="flex items-center space-x-3 text-2xl font-bold">
+                <LuUser2 />
+                <span>Profile</span>
+              </p>
+            </li>
+          </Link>
+
           <button className="bg-sky-500 py-3 rounded-full text-white font-bold transition-all hover:bg-sky-600">
             Log Out
           </button>
