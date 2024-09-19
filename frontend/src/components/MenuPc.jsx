@@ -20,27 +20,29 @@ function MenuPc() {
             </li>
           </Link>
           <Link to={"explore"}>
-            <li className="">
+            <li className="hover:text-sky-600 transition-all">
               <p className="flex items-center space-x-3 text-2xl font-bold">
                 <MdOutlineExplore size={24} />
                 <span>Explore</span>
               </p>
             </li>
           </Link>
-          <li className="">
+          <li className="hover:text-sky-600 transition-all">
             <p className="flex items-center space-x-3 text-2xl font-bold">
               <IoIosNotificationsOutline size={24} />
               <span>Notification</span>
             </p>
           </li>
-          <li className="">
-            <p className="flex items-center space-x-3 text-2xl font-bold">
-              <IoPeopleOutline />
-              <span>People</span>
-            </p>
-          </li>
+          <Link to={"peoples"}>
+            <li className="hover:text-sky-600 transition-all">
+              <p className="flex items-center space-x-3 text-2xl font-bold">
+                <IoPeopleOutline />
+                <span>People</span>
+              </p>
+            </li>
+          </Link>
           <Link to={"saves"}>
-            <li className="">
+            <li className="hover:text-sky-600 transition-all">
               <p className="flex items-center space-x-3 text-2xl font-bold">
                 <FaRegBookmark />
                 <span>Saves</span>

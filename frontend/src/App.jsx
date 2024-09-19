@@ -6,6 +6,7 @@ import AppLayout from "./pages/AppLayout";
 import Profile from "./pages/Profile";
 import Explore from "./pages/Explore";
 import Saves from "./pages/Saves";
+import People from "./pages/People";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="explore" element={<Explore />} />
             <Route path="saves" element={<Saves />} />
+            <Route path="peoples" element={<People />} />
           </Route>
         </Routes>
       </BrowserRouter>
