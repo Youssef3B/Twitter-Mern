@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AppLayout from "./pages/AppLayout";
 import Profile from "./pages/Profile";
 import Explore from "./pages/Explore";
+import Saves from "./pages/Saves";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="profile" element={<Profile />} />
             <Route path="explore" element={<Explore />} />
+            <Route path="saves" element={<Saves />} />
           </Route>
         </Routes>
       </BrowserRouter>

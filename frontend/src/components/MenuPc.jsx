@@ -39,12 +39,14 @@ function MenuPc() {
               <span>People</span>
             </p>
           </li>
-          <li className="">
-            <p className="flex items-center space-x-3 text-2xl font-bold">
-              <FaRegBookmark />
-              <span>Saves</span>
-            </p>
-          </li>
+          <Link to={"saves"}>
+            <li className="">
+              <p className="flex items-center space-x-3 text-2xl font-bold">
+                <FaRegBookmark />
+                <span>Saves</span>
+              </p>
+            </li>
+          </Link>
           <Link to={"profile"}>
             <li className="hover:text-sky-600 transition-all">
               <p className="flex items-center space-x-3 text-2xl font-bold">
