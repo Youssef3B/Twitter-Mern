@@ -3,6 +3,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoHomeOutline, IoPeopleOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineExplore } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function MenuPc() {
   return (
@@ -10,12 +11,15 @@ function MenuPc() {
       <div>
         <img src="/Twitter-Logo.png" className="w-14 pb-8" alt="" />
         <ul className="flex flex-col space-y-10">
-          <li className="">
-            <p className="flex items-center space-x-3 text-2xl font-bold">
-              <IoHomeOutline size={24} />
-              <span>Home</span>
-            </p>
-          </li>
+          <Link to={"/"}>
+            <li className="hover:text-sky-600 transition-all">
+              <p className="flex items-center space-x-3 text-2xl font-bold">
+                <IoHomeOutline size={24} />
+                <span>Home</span>
+              </p>
+            </li>
+          </Link>
+
           <li className="">
             <p className="flex items-center space-x-3 text-2xl font-bold">
               <MdOutlineExplore size={24} />

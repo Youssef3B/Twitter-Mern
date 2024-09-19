@@ -9,6 +9,9 @@ function User() {
         />
         <div>
           <h3 className="font-semibold">Arther Leywin</h3>
+          <h4 className="font-semibold text-sm text-gray-600">
+            @ArtherLeywin07
+          </h4>
         </div>
       </div>
       <div>
