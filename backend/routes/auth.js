@@ -11,16 +11,24 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
+    let userName = await User.findOne({ userName: req.body.userName });
+    if (userName) {
+      return res
+        .status(400)
+        .json({ message: "User with given userName already exists!" });
+    }
     let user = await User.findOne({ email: req.body.email });
     if (user) {
       return res
         .status(400)
         .json({ message: "User with given email already exists!" });
     }
+
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
 
     user = new User({
+      fullName: req.body.fullName,
       userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
