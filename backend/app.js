@@ -1,5 +1,6 @@
 const express = require("express");
 var cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -31,6 +32,8 @@ mongoose
 const app = express();
 // Apply Middlewares
 app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // Routes

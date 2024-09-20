@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { UserProvider } from "./contexts/UserContext";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -12,25 +13,44 @@ import People from "./pages/People";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
         <Routes>
-          {/* Auth Routes  */}
+          {/* Public Routes */}
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
 
-          {/* Routes App */}
-          <Route path="/" element={<AppLayout />}>
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Home />} />
             <Route path="profile" element={<Profile />} />
             <Route path="explore" element={<Explore />} />
             <Route path="saves" element={<Saves />} />
             <Route path="peoples" element={<People />} />
           </Route>
+
+          {/* Catch-all route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </BrowserRouter>
-      <Toaster position="top-center" reverseOrder={false} />
-    </>
+        <Toaster position="top-center" reverseOrder={false} />
+      </UserProvider>
+    </BrowserRouter>
   );
 }
+
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
+
 export default App;

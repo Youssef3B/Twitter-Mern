@@ -1,6 +1,27 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { jwtDecode } from "jwt-decode";
+import { useUser } from "../contexts/UserContext";
 
 function Login() {
+  const { login } = useUser();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const user = await login(email, password);
+      console.log(user); // This will now log the user data
+      navigate("/"); // Navigate after successful login
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  }
+
   return (
     <>
       <div className="grid lg:grid-cols-2 h-[100vh]">
@@ -13,7 +34,7 @@ function Login() {
             <p className="text-center  mb-4 text-sky-400">
               To use Twitter, please enter your details
             </p>
-            <form className="mt-4" action="">
+            <form onSubmit={handleSubmit} className="mt-4" action="">
               <div className="flex flex-col space-y-3 mb-4">
                 <label className="font-semibold" htmlFor="email">
                   Email
@@ -22,6 +43,8 @@ function Login() {
                   className="bg-neutral-700 p-2 rounded-md border-none outline-none"
                   type="text"
                   placeholder="example@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="flex flex-col space-y-3 mb-6 lg:w-[500px]">
@@ -31,7 +54,8 @@ function Login() {
                 <input
                   className="bg-neutral-700 p-2 rounded-md border-none outline-none"
                   type="password"
-                  placeholder=""
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
@@ -40,7 +64,7 @@ function Login() {
                 </button>
               </div>
               <p className="text-center mt-5 font-semibold">
-                Don&apos;t have account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link to={"/register"}>
                   <span className="text-sky-400">Sign up</span>
                 </Link>{" "}
@@ -59,4 +83,5 @@ function Login() {
     </>
   );
 }
+
 export default Login;

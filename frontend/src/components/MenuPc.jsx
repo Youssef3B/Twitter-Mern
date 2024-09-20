@@ -4,8 +4,10 @@ import { IoHomeOutline, IoPeopleOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineExplore } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 
 function MenuPc() {
+  const { logout } = useUser();
   return (
     <div className=" w-[320px] fixed h-full py-4 px-10 ">
       <div>
@@ -58,7 +60,10 @@ function MenuPc() {
             </li>
           </Link>
 
-          <button className="bg-sky-500 py-3 rounded-full text-white font-bold transition-all hover:bg-sky-600">
+          <button
+            onClick={logout}
+            className="bg-sky-500 py-3 rounded-full text-white font-bold transition-all hover:bg-sky-600"
+          >
             Log Out
           </button>
         </ul>

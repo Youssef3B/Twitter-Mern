@@ -45,11 +45,13 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-UserSchema.methods.generateAuthToken = () => {
-  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY);
+UserSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, email: this.email },
+    process.env.JWT_SECRET_KEY
+  );
   return token;
 };
-//  User Model
 
 const User = mongoose.model("user", UserSchema);
 
