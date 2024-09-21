@@ -34,6 +34,7 @@ router.post("/register", async (req, res) => {
       password: req.body.password,
       bio: req.body.bio,
       avatar: req.body.avatar,
+      banner: req.body.banner,
     });
     await user.save();
     res.status(201).json({ message: "User created successfully" });

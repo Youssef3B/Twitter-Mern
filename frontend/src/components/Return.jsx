@@ -7,7 +7,7 @@ function Return({ user }) {
         <IoReturnUpBackOutline size={32} />
       </div>
       <div>
-        <h3 className="font-bold text-xl">{user.userName}</h3>
+        <h3 className="font-bold text-xl">{user?.userName}</h3>
         <span className="text-gray-600 font-semibold">1 post</span>
       </div>
     </div>

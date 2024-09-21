@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 function Profile() {
   const { id } = useParams();
-  const { user, getUserFromHisId } = useUser();
+  const { user, getUserFromHisId, UpdateUserFromHisId } = useUser();
   useEffect(() => {
     getUserFromHisId(id);
   }, []);
@@ -23,7 +23,12 @@ function Profile() {
         {/* Head Of Page Profile */}
         <Return user={user} />
         {/* Banner of the Page Profile */}
-        <Banner />
+        <Banner
+          getUserFromHisId={getUserFromHisId}
+          user={user}
+          UpdateUserFromHisId={UpdateUserFromHisId}
+          id={id}
+        />
         {/* UserInfo */}
         <div className="relative mt-[74px] mb-8 mx-8">
           <UserInfo user={user} />
