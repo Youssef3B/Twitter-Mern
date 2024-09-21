@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { jwtDecode } from "jwt-decode";
-import { useUser } from "../contexts/UserContext";
+import { useAuthUser } from "../contexts/AuthContext";
 
 function Login() {
-  const { login } = useUser();
+  const { login } = useAuthUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

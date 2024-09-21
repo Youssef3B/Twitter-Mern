@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { UserProvider } from "./contexts/UserContext";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -14,33 +13,31 @@ import People from "./pages/People";
 function App() {
   return (
     <BrowserRouter>
-      <UserProvider>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
 
-          {/* Protected Routes */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <AppLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Home />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="explore" element={<Explore />} />
-            <Route path="saves" element={<Saves />} />
-            <Route path="peoples" element={<People />} />
-          </Route>
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="profile/:id" element={<Profile />} />
+          <Route path="explore" element={<Explore />} />
+          <Route path="saves" element={<Saves />} />
+          <Route path="peoples" element={<People />} />
+        </Route>
 
-          {/* Catch-all route */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <Toaster position="top-center" reverseOrder={false} />
-      </UserProvider>
+        {/* Catch-all route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <Toaster position="top-center" reverseOrder={false} />
     </BrowserRouter>
   );
 }

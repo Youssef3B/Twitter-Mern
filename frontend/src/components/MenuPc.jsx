@@ -4,10 +4,13 @@ import { IoHomeOutline, IoPeopleOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineExplore } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useUser } from "../contexts/UserContext";
+import { useAuthUser } from "../contexts/AuthContext";
 
 function MenuPc() {
-  const { logout } = useUser();
+  const { logout, user } = useAuthUser();
+  if (user) {
+    console.log(user._id);
+  }
   return (
     <div className=" w-[320px] fixed h-full py-4 px-10 ">
       <div>
@@ -51,7 +54,7 @@ function MenuPc() {
               </p>
             </li>
           </Link>
-          <Link to={"profile"}>
+          <Link to={user && `profile/${user._id}`}>
             <li className="hover:text-sky-600 transition-all">
               <p className="flex items-center space-x-3 text-2xl font-bold">
                 <LuUser2 />
