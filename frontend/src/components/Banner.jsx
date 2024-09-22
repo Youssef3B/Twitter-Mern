@@ -32,7 +32,8 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId }) {
+function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
+  // console.log(authUser._id);
   const [testBanner, setTestBanner] = useState(false);
   const [testAvatar, setTestAvatar] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,12 +113,17 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId }) {
           style={{ backgroundImage: `url(/uploads/${user?.avatar})` }}
         ></div>
       </div>
-      <button
-        onClick={openModal}
-        className="float-right my-3 mx-3 border border-black px-4 py-2 rounded-full font-bold hover:bg-black hover:text-white transition-all"
-      >
-        Edit Profile
-      </button>
+      {authUser._id === user?._id ? (
+        <button
+          onClick={openModal}
+          className="float-right my-3 mx-3 border borde-black px-4 py-2 rounded-full font-bold hover:bg-black hover:text-white transition-all"
+        >
+          Edit Profile
+        </button>
+      ) : (
+        ""
+      )}
+
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <form onSubmit={handleSubmit}>
           <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>

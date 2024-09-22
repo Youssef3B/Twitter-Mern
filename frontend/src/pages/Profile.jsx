@@ -7,12 +7,15 @@ import UserInfo from "../components/UserInfo";
 import { useUser } from "../contexts/UserContext";
 import { useParams } from "react-router-dom";
 import LoadingBanner from "../components/LoadingBanner";
+import { useAuthUser } from "../contexts/AuthContext";
 
 function Profile() {
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
   const { user, getUserFromHisId, UpdateUserFromHisId } = useUser();
+  const { user: authUser } = useAuthUser();
+
   useEffect(() => {
     setLoading(true);
     getUserFromHisId(id).finally(() => setLoading(false));
@@ -35,6 +38,7 @@ function Profile() {
             user={user}
             UpdateUserFromHisId={UpdateUserFromHisId}
             id={id}
+            authUser={authUser}
           />
         )}
 
