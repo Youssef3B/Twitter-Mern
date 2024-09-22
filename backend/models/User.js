@@ -34,11 +34,12 @@ const UserSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: null,
+      default: "/defaultAvatar.webp",
     },
     banner: {
       type: String,
       default: null,
+      default: "/defaultBanner.png",
     },
     bio: {
       type: String,

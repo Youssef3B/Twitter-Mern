@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -94,6 +95,7 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId }) {
       await UpdateUserFromHisId(id, formData);
       closeModal();
       getUserFromHisId(id);
+      toast.success("Your Profile has been updated Successfully");
     } catch (error) {
       console.error("Error updating user:", error);
     }

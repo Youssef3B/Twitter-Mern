@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import Input from "../components/Input";
 import Post from "../components/Post";
@@ -6,13 +6,17 @@ import Return from "../components/Return";
 import UserInfo from "../components/UserInfo";
 import { useUser } from "../contexts/UserContext";
 import { useParams } from "react-router-dom";
+import LoadingBanner from "../components/LoadingBanner";
 
 function Profile() {
+  const [loading, setLoading] = useState(true);
+
   const { id } = useParams();
   const { user, getUserFromHisId, UpdateUserFromHisId } = useUser();
   useEffect(() => {
-    getUserFromHisId(id);
-  }, []);
+    setLoading(true);
+    getUserFromHisId(id).finally(() => setLoading(false));
+  }, [id]);
 
   if (user) {
     console.log(user);
@@ -23,12 +27,17 @@ function Profile() {
         {/* Head Of Page Profile */}
         <Return user={user} />
         {/* Banner of the Page Profile */}
-        <Banner
-          getUserFromHisId={getUserFromHisId}
-          user={user}
-          UpdateUserFromHisId={UpdateUserFromHisId}
-          id={id}
-        />
+        {loading ? (
+          <LoadingBanner />
+        ) : (
+          <Banner
+            getUserFromHisId={getUserFromHisId}
+            user={user}
+            UpdateUserFromHisId={UpdateUserFromHisId}
+            id={id}
+          />
+        )}
+
         {/* UserInfo */}
         <div className="relative mt-[74px] mb-8 mx-8">
           <UserInfo user={user} />

@@ -5,6 +5,7 @@ const UserContext = createContext();
 
 function UserProvider({ children }) {
   const [user, setUser] = useState();
+  const [allUsers, setAllUsers] = useState([]);
 
   async function getUserFromHisId(id) {
     const url = `http://localhost:5000/api/user/getUserById/${id}`;
@@ -32,9 +33,27 @@ function UserProvider({ children }) {
     }
   }
 
+  async function getAllUsers() {
+    const url = `http://localhost:5000/api/user/allusers`;
+    try {
+      const res = await axios.get(url);
+      if (res) {
+        setAllUsers(res.data);
+      }
+    } catch (error) {
+      console.log("Error Fetch All Users", error);
+    }
+  }
+
   return (
     <UserContext.Provider
-      value={{ user, getUserFromHisId, UpdateUserFromHisId }}
+      value={{
+        user,
+        getUserFromHisId,
+        UpdateUserFromHisId,
+        getAllUsers,
+        allUsers,
+      }}
     >
       {children}
     </UserContext.Provider>
