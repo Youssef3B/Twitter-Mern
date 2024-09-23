@@ -2,6 +2,19 @@ const express = require("express");
 const { Post } = require("../models/Post");
 const userArr = require("../helper/userArr");
 const router = express.Router();
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../../frontend/public/uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 /**
  * @desc Get All Posts
@@ -46,12 +59,12 @@ router.get("/:id", async (req, res) => {
  * @access public
  */
 
-router.post("/", async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
   try {
     const post = new Post({
       user: req.body.user,
       title: req.body.title,
-      image: req.body.image,
+      image: req.file ? `/uploads/${req.file.filename}` : null,
       likes: req.body.likes,
     });
     const result = await post.save();
