@@ -40,12 +40,13 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
   const [bannerFile, setBannerFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(
     user?.avatar
-      ? `/uploads/${encodeURIComponent(user.avatar)}`
+      ? `/uploads/${encodeURIComponent(user.avatar.replace(/^\/+/, ""))}`
       : "/default-avatar.png"
   );
+
   const [bannerPreview, setBannerPreview] = useState(
     user?.banner
-      ? `/uploads/${encodeURIComponent(user.banner)}`
+      ? `/uploads/${encodeURIComponent(user.banner.replace(/^\/+/, ""))}`
       : "/default-banner.jpg"
   );
 
