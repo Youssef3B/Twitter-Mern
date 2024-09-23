@@ -28,7 +28,15 @@ router.get("/", async (req, res) => {
     const posts = await Post.find().populate("user", userArr);
     res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    console.error("Error in GET /api/post:", error);
+    res.status(500).json({
+      message: "Something went wrong",
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+    });
   }
 });
 

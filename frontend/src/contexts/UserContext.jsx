@@ -8,10 +8,17 @@ function UserProvider({ children }) {
   const [allUsers, setAllUsers] = useState([]);
 
   async function getUserFromHisId(id) {
+    if (!id) {
+      return;
+    }
     const url = `http://localhost:5000/api/user/getUserById/${id}`;
-    const res = await axios.get(url);
-    if (res) {
-      setUser(res.data);
+    try {
+      const res = await axios.get(url);
+      if (res.data) {
+        setUser(res.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
     }
   }
 

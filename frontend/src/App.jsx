@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Explore from "./pages/Explore";
 import Saves from "./pages/Saves";
 import People from "./pages/People";
+import PostDetails from "./pages/PostDetails";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="explore" element={<Explore />} />
           <Route path="saves" element={<Saves />} />
           <Route path="peoples" element={<People />} />
+          <Route path="poste/:id" element={<PostDetails />} />
         </Route>
 
         {/* Catch-all route */}

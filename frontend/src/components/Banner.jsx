@@ -33,17 +33,20 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
-  // console.log(authUser._id);
   const [testBanner, setTestBanner] = useState(false);
   const [testAvatar, setTestAvatar] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [avatarFile, setAvatarFile] = useState(null);
   const [bannerFile, setBannerFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(
-    user?.avatar || "/default-avatar.png"
+    user?.avatar
+      ? `/uploads/${encodeURIComponent(user.avatar)}`
+      : "/default-avatar.png"
   );
   const [bannerPreview, setBannerPreview] = useState(
-    user?.banner || "/default-banner.jpg"
+    user?.banner
+      ? `/uploads/${encodeURIComponent(user.banner)}`
+      : "/default-banner.jpg"
   );
 
   const [fullName, setFullName] = useState(user?.fullName);
@@ -106,14 +109,15 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
     <div className="w-full">
       <div
         className="relative w-full h-[340px] bg-cover bg-center"
-        style={{ backgroundImage: `url(/uploads/${user?.banner})` }}
+        style={{ backgroundImage: `url(${bannerPreview})` }}
       >
-        <div
-          className="absolute w-36 h-36 rounded-full bottom-[-60px] left-6 border-2 border-black bg-cover bg-center"
-          style={{ backgroundImage: `url(/uploads/${user?.avatar})` }}
-        ></div>
+        <img
+          className=" absolute w-36 h-36 bottom-[-36px] left-3 rounded-full object-cover border-2  border-black"
+          src={avatarPreview}
+          alt=""
+        />
       </div>
-      {authUser._id === user?._id ? (
+      {authUser?._id === user?._id ? (
         <button
           onClick={openModal}
           className="float-right my-3 mx-3 border borde-black px-4 py-2 rounded-full font-bold hover:bg-black hover:text-white transition-all"
@@ -130,11 +134,7 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
 
           <div className="relative">
             <img
-              src={
-                testBanner === false
-                  ? `/uploads/${user?.banner}`
-                  : bannerPreview
-              }
+              src={bannerPreview}
               className="w-full h-96 object-cover cursor-pointer hover:opacity-70"
               alt="banner"
               onClick={handleBannerClick}
@@ -149,11 +149,7 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
             <div className="absolute bottom-[-64px] left-4">
               <img
                 className="w-32 h-32 object-cover rounded-full border-2 border-black cursor-pointer"
-                src={
-                  testAvatar === false
-                    ? `/uploads/${user?.avatar}`
-                    : avatarPreview
-                }
+                src={avatarPreview}
                 onClick={handleAvatarClick}
                 alt="avatar"
               />

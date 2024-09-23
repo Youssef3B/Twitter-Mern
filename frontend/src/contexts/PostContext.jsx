@@ -1,10 +1,12 @@
 import axios from "axios";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 
 const PostContext = createContext();
 
 function PostProvider({ children }) {
+  const [AllPosts, setAllPosts] = useState([]);
+  const [post, setPost] = useState();
   async function createPost(data) {
     const url = `http://localhost:5000/api/poste`;
     try {
@@ -17,8 +19,42 @@ function PostProvider({ children }) {
       console.log(error);
     }
   }
+
+  async function getAllPosts() {
+    const url = `http://localhost:5000/api/poste`;
+    try {
+      const res = await axios.get(url);
+      if (res) {
+        console.log("Posts fetched successfully", res.data);
+
+        setAllPosts(res.data);
+      }
+    } catch (error) {
+      console.error(
+        "Error fetching posts:",
+        error.response ? error.response.data : error.message
+      );
+
+      console.log(error);
+    }
+  }
+
+  async function getPostFromHisId(id) {
+    const url = `http://localhost:5000/api/poste/${id}`;
+    try {
+      const res = await axios.get(url);
+      if (res) {
+        setPost(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <PostContext.Provider value={{ createPost }}>
+    <PostContext.Provider
+      value={{ createPost, AllPosts, getAllPosts, getPostFromHisId, post }}
+    >
       {children}
     </PostContext.Provider>
   );

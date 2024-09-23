@@ -27,8 +27,8 @@ function People() {
                   ? item
                   : item.userName.toLocaleLowerCase().includes(search);
               })
-              .map((user, index) => (
-                <Link to={`/profile/${user._id}`} key={index}>
+              .map((user) => (
+                <Link to={`/profile/${user?._id}`} key={user?._id}>
                   <UserCard user={user} />
                 </Link>
               ))}
