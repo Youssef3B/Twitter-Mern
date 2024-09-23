@@ -33,6 +33,7 @@ function Modal({ isOpen, onClose, children }) {
 }
 
 function Input() {
+  const [file, setFile] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [text, setText] = useState("");
@@ -50,6 +51,11 @@ function Input() {
   };
   function handleOnEnter(text) {
     console.log("enter", text);
+  }
+
+  function handleChange(e) {
+    // console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
   }
 
   return (
@@ -106,12 +112,23 @@ function Input() {
 
         <div className="float-right cursor-pointer mb-4">
           {/* Hidden file input */}
-          <input type="file" ref={fileInputRef} style={{ display: "none" }} />
+          <input
+            onChange={handleChange}
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+          />
           {/* Gallery icon */}
           <GrGallery size={24} onClick={handleIconClick} />
         </div>
         <div className="pt-4">
-          <img className="rounded-lg" src="/banner.png" alt="" />
+          {file && (
+            <img
+              className="rounded-lg h-96 w-full object-cover"
+              src={file}
+              alt=""
+            />
+          )}
         </div>
 
         <div className="my-4">
