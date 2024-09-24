@@ -5,10 +5,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import Comments from "../components/Comments";
+import { useAuthUser } from "../contexts/AuthContext";
 
 function PostDetails() {
   const { id } = useParams();
   const { post, getPostFromHisId } = usePost();
+  const { user } = useAuthUser();
   const [Loading, setLoading] = useState(false);
   const [text, setText] = useState("");
 
@@ -65,7 +67,7 @@ function PostDetails() {
                 <CiBookmark size={24} />
               </span>
             </div>
-            <Comments />
+            <Comments user={user} id={id} />
           </div>
         </div>
       </section>

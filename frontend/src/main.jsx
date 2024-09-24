@@ -5,15 +5,18 @@ import "./index.css";
 import { AuthUserProvider } from "./contexts/AuthContext.jsx";
 import { UserProvider } from "./contexts/UserContext.jsx";
 import { PostProvider } from "./contexts/PostContext.jsx";
+import { CommentProvider } from "./contexts/CommentContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthUserProvider>
-      <UserProvider>
-        <PostProvider>
-          <App />
-        </PostProvider>
-      </UserProvider>
-    </AuthUserProvider>
+    <CommentProvider>
+      <AuthUserProvider>
+        <UserProvider>
+          <PostProvider>
+            <App />
+          </PostProvider>
+        </UserProvider>
+      </AuthUserProvider>
+    </CommentProvider>
   </StrictMode>
 );
