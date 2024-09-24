@@ -3,11 +3,14 @@ import { FaRegComment } from "react-icons/fa";
 import { usePost } from "../contexts/PostContext";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import InputEmoji from "react-input-emoji";
+import Comments from "../components/Comments";
 
 function PostDetails() {
   const { id } = useParams();
   const { post, getPostFromHisId } = usePost();
   const [Loading, setLoading] = useState(false);
+  const [text, setText] = useState("");
 
   useEffect(() => {
     async function fetchPost() {
@@ -39,7 +42,6 @@ function PostDetails() {
                 <p className="text-sm text-gray-600"> {post?.user?.userName}</p>
               </div>
             </div>
-            {/* TextArea */}
             <div className="my-4">
               <h3 className="font-semibold text-xl">{post?.title}</h3>
               <img
@@ -63,6 +65,7 @@ function PostDetails() {
                 <CiBookmark size={24} />
               </span>
             </div>
+            <Comments />
           </div>
         </div>
       </section>
