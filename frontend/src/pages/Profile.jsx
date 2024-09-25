@@ -8,13 +8,26 @@ import { useUser } from "../contexts/UserContext";
 import { useParams } from "react-router-dom";
 import LoadingBanner from "../components/LoadingBanner";
 import { useAuthUser } from "../contexts/AuthContext";
+import { usePost } from "../contexts/PostContext";
 
 function Profile() {
   const [loading, setLoading] = useState(true);
+  const [filterPosts, setFilterPosts] = useState([]);
   const { id } = useParams();
   const { user, getUserFromHisId, UpdateUserFromHisId } = useUser();
+  const { getAllPosts, AllPosts } = usePost();
   const { user: authUser } = useAuthUser();
 
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  useEffect(() => {
+    if (AllPosts && id) {
+      const filteredPosts = AllPosts.filter((post) => post?.user?._id === id);
+      setFilterPosts(filteredPosts);
+    }
+  }, [AllPosts, id]);
   useEffect(() => {
     async function fetchUser() {
       setLoading(true);
@@ -26,6 +39,10 @@ function Profile() {
       fetchUser();
     }
   }, [id]);
+
+  if (filterPosts) {
+    console.log(filterPosts);
+  }
 
   return (
     <section>
@@ -57,7 +74,8 @@ function Profile() {
 
       {/* Posts */}
       <div className="mx-8">
-        <Post />
+        {filterPosts &&
+          filterPosts.map((post) => <Post key={post?._id} post={post} />)}
       </div>
     </section>
   );

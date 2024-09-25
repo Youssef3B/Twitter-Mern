@@ -12,7 +12,6 @@ function PostProvider({ children }) {
     try {
       const res = await axios.post(url, data);
       if (res) {
-        console.log("Post created successfully");
         toast.success("Post created successfully");
       }
     } catch (error) {
@@ -25,8 +24,6 @@ function PostProvider({ children }) {
     try {
       const res = await axios.get(url);
       if (res) {
-        console.log("Posts fetched successfully", res.data);
-
         setAllPosts(res.data);
       }
     } catch (error) {

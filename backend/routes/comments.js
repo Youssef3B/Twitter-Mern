@@ -20,7 +20,14 @@ router.get("/", async (req, res) => {
 
     res.status(200).json(comments);
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    res.status(500).json({
+      message: "Something went wrong",
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+    });
   }
 });
 
@@ -43,7 +50,14 @@ router.post("/", async (req, res) => {
       res.status(201).json(comment);
     }
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    res.status(500).json({
+      message: "Something went wrong",
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+    });
   }
 });
 

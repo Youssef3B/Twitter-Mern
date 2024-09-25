@@ -25,6 +25,7 @@ function PostDetails() {
       fetchPost();
     }
   }, [id]);
+
   return (
     <>
       <section>
@@ -46,11 +47,13 @@ function PostDetails() {
             </div>
             <div className="my-4">
               <h3 className="font-semibold text-xl">{post?.title}</h3>
-              <img
-                className="my-4 w-full h-[600px] object-cover rounded-lg"
-                src={post?.image}
-                alt=""
-              />
+              {post?.image && (
+                <img
+                  className="my-4 w-full h-[600px] object-cover rounded-lg"
+                  src={post?.image}
+                  alt=""
+                />
+              )}
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-4">

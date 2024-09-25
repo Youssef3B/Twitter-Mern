@@ -30,7 +30,7 @@ function Post({ post }) {
             ""
           ) : (
             <img
-              className="rounded-lg my-4 h-64 w-full object-cover"
+              className="rounded-lg my-4 h-94 w-full object-cover"
               src={`${post?.image}`}
               alt=""
             />

@@ -85,6 +85,13 @@ router.post("/", upload.single("image"), async (req, res) => {
 });
 
 /**
+ * @desc Add a like
+ * @route /api/post/like
+ * @method POST
+ * @access public
+ */
+
+/**
  * @desc Edit Post From His Id
  * @route /api/Post/:id
  * @method PUT

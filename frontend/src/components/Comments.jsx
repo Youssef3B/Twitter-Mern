@@ -1,18 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import Comment from "./Comment";
 import { useComment } from "../contexts/CommentContext";
 
 function Comments({ id, user }) {
   const [text, setText] = useState("");
-  const { CreateComment } = useComment();
+  const { CreateComment, allComments, getAllComments } = useComment();
+  const [commentsFiltred, setCommentsFiltred] = useState([]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const data = { user: user?._id, post: id, description: text };
-    CreateComment(data);
+    const newComment = await CreateComment(data);
     setText("");
+
+    // Update local state immediately, adding new comment at the beginning
+    setCommentsFiltred((prevComments) => [newComment, ...prevComments]);
+
+    // Optionally, refresh all comments
+    getAllComments();
   }
+
+  useEffect(() => {
+    getAllComments();
+  }, []);
+
+  useEffect(() => {
+    function filterComments() {
+      const filteredComments = allComments
+        .filter((comment) => comment?.post._id === id)
+        .reverse(); // Reverse the order of comments
+      setCommentsFiltred(filteredComments);
+    }
+
+    filterComments();
+  }, [allComments, id]);
 
   return (
     <div className="my-6">
@@ -21,8 +43,8 @@ function Comments({ id, user }) {
         <div className="my-2 flex items-center">
           <div>
             <img
-              className="w-10 h-10 rounded-full object-cover"
-              src="/user.jpg"
+              className="w-12 rounded-full object-cover"
+              src={`/uploads/${user?.avatar}`}
               alt=""
             />
           </div>
@@ -45,10 +67,11 @@ function Comments({ id, user }) {
       </form>
 
       {/* Section Of Comments  */}
-      <Comment />
-      <Comment />
-      <Comment />
+      {commentsFiltred.map((comment) => (
+        <Comment comment={comment} key={comment?._id} />
+      ))}
     </div>
   );
 }
+
 export default Comments;
