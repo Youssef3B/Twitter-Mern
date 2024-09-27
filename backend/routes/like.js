@@ -55,17 +55,13 @@ router.post("/", async (req, res) => {
  * @access   public
  */
 
-router.delete("/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
+  const { userId, postId } = req.body;
   try {
-    const like = await Like.findById(req.params.id);
-    if (like) {
-      await Like.findByIdAndDelete(req.params.id);
-      res.status(200).json({ message: "Like deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Like not found" });
-    }
+    await Like.findOneAndDelete({ user: userId, post: postId });
+    res.status(200).send("Like deleted successfully");
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    res.status(500).send("Error deleting like");
   }
 });
 module.exports = router;

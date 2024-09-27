@@ -14,13 +14,22 @@ function PostDetails() {
   const [Loading, setLoading] = useState(false);
   const [filterLikes, setFilterLikes] = useState([]);
 
-  const { likes, addLike, getAllLikes } = useLike();
+  const { likes, addLike, getAllLikes, deleteLike } = useLike();
 
-  async function handleSubmit(e) {
+  async function handleLikeToggle(e) {
     e.preventDefault();
-    const data = { user: user?._id, post: id };
-    await addLike(data); // Add the like
-    await getAllLikes(); // Re-fetch the likes after adding a new like
+    const hasLiked = filterLikes.some((like) => like?.user?._id === user?._id); // Check if user already liked the post
+
+    if (hasLiked) {
+      // If user has liked, delete the like
+      await deleteLike(user?._id, id); // Pass user ID and post ID to delete the like
+    } else {
+      // If user has not liked, add the like
+      const data = { user: user?._id, post: id };
+      await addLike(data); // Add the like
+    }
+
+    await getAllLikes(); // Re-fetch the likes after adding/deleting
   }
 
   useEffect(() => {
@@ -83,7 +92,7 @@ function PostDetails() {
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-4">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleLikeToggle}>
                   <button type="submit">
                     <span className="flex items-center space-x-1 cursor-pointer">
                       <CiHeart size={24} />

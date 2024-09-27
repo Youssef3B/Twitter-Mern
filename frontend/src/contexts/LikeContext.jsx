@@ -29,11 +29,24 @@ function LikeProvider({ children }) {
       console.log(error);
     }
   }
+
+  async function deleteLike(userId, postId) {
+    const url = `http://localhost:5000/api/likes`;
+    try {
+      const res = await axios.delete(url, { data: { userId, postId } });
+      if (res) {
+        console.log("Like deleted successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getAllLikes();
   }, []);
   return (
-    <LikeContext.Provider value={{ getAllLikes, likes, addLike }}>
+    <LikeContext.Provider value={{ getAllLikes, likes, addLike, deleteLike }}>
       {children}
     </LikeContext.Provider>
   );
