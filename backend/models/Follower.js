@@ -18,7 +18,7 @@ const FollowerSchema = new mongoose.Schema(
 
 //  User Model
 
-const Follower = mongoose.model("follower", FollowerSchema);
+const Follower = mongoose.model("Follower", FollowerSchema);
 
 module.exports = {
   Follower,

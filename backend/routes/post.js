@@ -73,7 +73,6 @@ router.post("/", upload.single("image"), async (req, res) => {
       user: req.body.user,
       title: req.body.title,
       image: req.file ? `/uploads/${req.file.filename}` : null,
-      likes: req.body.likes,
     });
     const result = await post.save();
     if (result) {
@@ -90,6 +89,20 @@ router.post("/", upload.single("image"), async (req, res) => {
  * @method POST
  * @access public
  */
+
+router.post("/like", async (req, res) => {
+  try {
+    const post = new Post({
+      likes: req.body.likes,
+    });
+    const result = await post.save();
+    if (result) {
+      res.status(201).json(post);
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong", error });
+  }
+});
 
 /**
  * @desc Edit Post From His Id

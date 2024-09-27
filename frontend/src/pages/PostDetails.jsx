@@ -3,16 +3,25 @@ import { FaRegComment } from "react-icons/fa";
 import { usePost } from "../contexts/PostContext";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import InputEmoji from "react-input-emoji";
 import Comments from "../components/Comments";
 import { useAuthUser } from "../contexts/AuthContext";
+import { useLike } from "../contexts/LikeContext";
 
 function PostDetails() {
   const { id } = useParams();
   const { post, getPostFromHisId } = usePost();
   const { user } = useAuthUser();
   const [Loading, setLoading] = useState(false);
-  const [text, setText] = useState("");
+  const [filterLikes, setFilterLikes] = useState([]);
+
+  const { likes, addLike, getAllLikes } = useLike();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = { user: user?._id, post: id };
+    await addLike(data); // Add the like
+    await getAllLikes(); // Re-fetch the likes after adding a new like
+  }
 
   useEffect(() => {
     async function fetchPost() {
@@ -25,6 +34,23 @@ function PostDetails() {
       fetchPost();
     }
   }, [id]);
+
+  async function FilterPosts() {
+    if (likes) {
+      const res = likes.filter((like) => like?.post?._id === id);
+      setFilterLikes(res);
+    }
+  }
+
+  useEffect(() => {
+    if (likes) {
+      FilterPosts();
+    }
+  }, [likes, id]);
+
+  if (filterLikes) {
+    console.log(filterLikes);
+  }
 
   return (
     <>
@@ -57,10 +83,15 @@ function PostDetails() {
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-4">
-                <span className="flex items-center space-x-1 cursor-pointer">
-                  <CiHeart size={24} />
-                  <p>0</p>
-                </span>
+                <form onSubmit={handleSubmit}>
+                  <button type="submit">
+                    <span className="flex items-center space-x-1 cursor-pointer">
+                      <CiHeart size={24} />
+                      <p>{filterLikes.length}</p>{" "}
+                      {/* Display the filtered likes count */}
+                    </span>
+                  </button>
+                </form>
                 <span className="flex items-center space-x-1 cursor-pointer">
                   <FaRegComment size={18} />
                   <p>0</p>
@@ -77,4 +108,5 @@ function PostDetails() {
     </>
   );
 }
+
 export default PostDetails;

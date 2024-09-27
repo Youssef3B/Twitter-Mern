@@ -50,7 +50,13 @@ function PostProvider({ children }) {
 
   return (
     <PostContext.Provider
-      value={{ createPost, AllPosts, getAllPosts, getPostFromHisId, post }}
+      value={{
+        createPost,
+        AllPosts,
+        getAllPosts,
+        getPostFromHisId,
+        post,
+      }}
     >
       {children}
     </PostContext.Provider>

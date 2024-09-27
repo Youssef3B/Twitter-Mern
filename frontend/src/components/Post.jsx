@@ -38,10 +38,14 @@ function Post({ post }) {
 
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              <span className="flex items-center space-x-1 cursor-pointer">
-                <CiHeart size={24} />
-                <p>0</p>
-              </span>
+              <form action="">
+                <button type="submit">
+                  <span className="flex items-center space-x-1 cursor-pointer">
+                    <CiHeart size={24} />
+                    <p>0</p>
+                  </span>
+                </button>
+              </form>
               <span className="flex items-center space-x-1 cursor-pointer">
                 <FaRegComment size={18} />
                 <p>0</p>

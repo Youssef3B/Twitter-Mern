@@ -18,7 +18,7 @@ const SavedSchema = new mongoose.Schema(
 
 //  User Model
 
-const Saved = mongoose.model("saved", SavedSchema);
+const Saved = mongoose.model("Saved", SavedSchema);
 
 module.exports = {
   Saved,

@@ -6,17 +6,20 @@ import { AuthUserProvider } from "./contexts/AuthContext.jsx";
 import { UserProvider } from "./contexts/UserContext.jsx";
 import { PostProvider } from "./contexts/PostContext.jsx";
 import { CommentProvider } from "./contexts/CommentContext.jsx";
+import { LikeProvider } from "./contexts/LikeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CommentProvider>
-      <AuthUserProvider>
-        <UserProvider>
-          <PostProvider>
-            <App />
-          </PostProvider>
-        </UserProvider>
-      </AuthUserProvider>
-    </CommentProvider>
+    <LikeProvider>
+      <CommentProvider>
+        <AuthUserProvider>
+          <UserProvider>
+            <PostProvider>
+              <App />
+            </PostProvider>
+          </UserProvider>
+        </AuthUserProvider>
+      </CommentProvider>
+    </LikeProvider>
   </StrictMode>
 );

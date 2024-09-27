@@ -1,14 +1,37 @@
 const express = require("express");
 const { Like } = require("../models/Like");
 const userArr = require("../helper/userArr");
+const postArr = require("../helper/postArr");
 const router = express.Router();
 
 /**
- * @desc     Add a like
+ * @desc     Get All Likes
  * @route    /api/like
  * @method   POST
  * @access   public
  */
+
+router.get("/", async (req, res) => {
+  try {
+    const likes = await Like.find().populate([
+      { path: "user", select: userArr },
+      { path: "post", select: postArr },
+    ]);
+    if (likes) {
+      res.status(200).json(likes);
+    }
+  } catch (error) {
+    console.error("Error in GET /api/post:", error);
+    res.status(500).json({
+      message: "Something went wrong",
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+    });
+  }
+});
 
 router.post("/", async (req, res) => {
   try {
