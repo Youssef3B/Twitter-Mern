@@ -43,12 +43,12 @@ function Comments({ id, user }) {
         <div className="my-2 flex items-center">
           <div>
             <img
-              className="w-12 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover"
               src={`/uploads/${user?.avatar}`}
               alt=""
             />
           </div>
-          <div className="w-full">
+          <div className="w-[600px]">
             <InputEmoji
               value={text}
               onChange={setText}
