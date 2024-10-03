@@ -7,19 +7,22 @@ import { UserProvider } from "./contexts/UserContext.jsx";
 import { PostProvider } from "./contexts/PostContext.jsx";
 import { CommentProvider } from "./contexts/CommentContext.jsx";
 import { LikeProvider } from "./contexts/LikeContext.jsx";
+import { SaveProvider } from "./contexts/SaveContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LikeProvider>
-      <CommentProvider>
-        <AuthUserProvider>
-          <UserProvider>
-            <PostProvider>
-              <App />
-            </PostProvider>
-          </UserProvider>
-        </AuthUserProvider>
-      </CommentProvider>
-    </LikeProvider>
+    <SaveProvider>
+      <LikeProvider>
+        <CommentProvider>
+          <AuthUserProvider>
+            <UserProvider>
+              <PostProvider>
+                <App />
+              </PostProvider>
+            </UserProvider>
+          </AuthUserProvider>
+        </CommentProvider>
+      </LikeProvider>
+    </SaveProvider>
   </StrictMode>
 );

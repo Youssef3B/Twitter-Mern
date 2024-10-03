@@ -62,12 +62,13 @@ router.post("/", async (req, res) => {
  * @access   public
  */
 
-router.delete("/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
+  const { userId, postId } = req.body;
+
   try {
-    const save = await Saved.findById(req.params.id);
+    const save = await Saved.findOneAndDelete({ user: userId, post: postId });
     if (save) {
-      await save.findByIdAndDelete(req.params.id);
-      res.status(200).json({ message: "Save deleted successfully" });
+      res.status(200).json({ message: "Save successfully removed" });
     } else {
       res.status(404).json({ message: "Save not found" });
     }
@@ -75,4 +76,5 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "Something went wrong", error });
   }
 });
+
 module.exports = router;

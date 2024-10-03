@@ -8,33 +8,55 @@ import { useAuthUser } from "../contexts/AuthContext";
 import { useLike } from "../contexts/LikeContext";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 
 function PostDetails() {
   const { id } = useParams();
   const { post, getPostFromHisId } = usePost();
   const { user } = useAuthUser();
   const [Loading, setLoading] = useState(false);
+  // Likes
   const [filterLikes, setFilterLikes] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  // saves
+  const [filterSaves, setFilterSaves] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const { likes, addLike, getAllLikes, deleteLike } = useLike();
+  const { allSaves, addSave, deleteSave, getAllSaves } = useSave();
 
   async function handleLikeToggle(e) {
     e.preventDefault();
-    const hasLiked = filterLikes.some((like) => like?.user?._id === user?._id); // Check if user already liked the post
+    e.stopPropagation(); // Stop the click event from propagating to the Link
+
+    const hasLiked = filterLikes.some((like) => like?.user?._id === user?._id);
 
     if (hasLiked) {
-      // If user has liked, delete the like
-      await deleteLike(user?._id, id); // Pass user ID and post ID to delete the like
+      await deleteLike(user?._id, post?._id);
       setIsLiked(false);
     } else {
-      // If user has not liked, add the like
-      const data = { user: user?._id, post: id };
+      const data = { user: user?._id, post: post?._id };
       setIsLiked(true);
-      await addLike(data); // Add the like
+      await addLike(data);
     }
 
-    await getAllLikes(); // Re-fetch the likes after adding/deleting
+    await getAllLikes(); // Re-fetch likes
+  }
+
+  async function handleSaveToggle(e) {
+    e.preventDefault();
+    e.stopPropagation(); // Stop the click event from propagating to the Link
+
+    const hasSaved = filterSaves.some((save) => save?.user?._id === user?._id);
+    if (hasSaved) {
+      await deleteSave(user?._id, post?._id);
+      setIsSaved(false);
+    } else {
+      const data = { user: user?._id, post: post?._id };
+      setIsSaved(true);
+      await addSave(data);
+    }
+    await getAllSaves();
   }
 
   useEffect(() => {
@@ -55,12 +77,23 @@ function PostDetails() {
       setFilterLikes(res);
     }
   }
+  async function FilterSaves() {
+    if (allSaves) {
+      const res = allSaves.filter((save) => save?.post._id === id);
+      setFilterSaves(res);
+    }
+  }
 
   useEffect(() => {
     if (likes) {
       FilterPosts();
     }
   }, [likes, id]);
+  useEffect(() => {
+    if (allSaves) {
+      FilterSaves();
+    }
+  }, [allSaves, id]);
 
   useEffect(() => {
     // Check if the current user has already liked the post
@@ -68,8 +101,13 @@ function PostDetails() {
     setIsLiked(hasLiked);
   }, [filterLikes, user]);
 
-  if (filterLikes) {
-    console.log(filterLikes);
+  useEffect(() => {
+    const hasSaved = filterSaves.some((save) => save?.user?._id === user?._id);
+    setIsSaved(hasSaved);
+  }, [filterSaves, user]);
+
+  if (allSaves) {
+    console.log(allSaves);
   }
 
   return (
@@ -129,9 +167,17 @@ function PostDetails() {
                     <p>0</p>
                   </span>
                 </div>
-                <span className="flex items-center space-x-1 cursor-pointer">
-                  <CiBookmark size={24} />
-                </span>
+                <form onSubmit={handleSaveToggle} action="">
+                  <button type="submit">
+                    <span className="flex items-center space-x-1 cursor-pointer">
+                      {isSaved ? (
+                        <FaBookmark size={24} />
+                      ) : (
+                        <CiBookmark size={24} />
+                      )}
+                    </span>
+                  </button>
+                </form>
               </div>
               <Comments user={user} id={id} />
             </div>
@@ -141,7 +187,7 @@ function PostDetails() {
     </>
   );
 }
-import LoadingUser from "../components/LoadingUser";
 import LoadingPost from "../components/LoadingPost";
+import { useSave } from "../contexts/SaveContext";
 
 export default PostDetails;

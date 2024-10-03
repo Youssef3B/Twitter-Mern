@@ -1,7 +1,9 @@
 import Post from "../components/Post";
 import Search from "../components/Search";
+import { useSave } from "../contexts/SaveContext";
 
 function Saves() {
+  const { allSaves, getAllSaves } = useSave();
   return (
     <div className="my-4 mx-8">
       <Search />

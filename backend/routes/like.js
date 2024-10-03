@@ -57,11 +57,13 @@ router.post("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   const { userId, postId } = req.body;
+
   try {
+    // Find and delete the save by userId and postId
     await Like.findOneAndDelete({ user: userId, post: postId });
-    res.status(200).send("Like deleted successfully");
+    res.status(200).send("Save deleted successfully");
   } catch (error) {
-    res.status(500).send("Error deleting like");
+    res.status(500).send("Error deleting save");
   }
 });
 module.exports = router;

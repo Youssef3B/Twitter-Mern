@@ -142,17 +142,5 @@ router.put("/:id", async (req, res) => {
  * @method DELETE
  * @access public
  */
-router.delete("/:id", async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id);
-    if (post) {
-      await Post.findByIdAndDelete(req.params.id);
-      res.status(200).json({ message: "Post Has Been Deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Post Not Found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
-  }
-});
+
 module.exports = router;
