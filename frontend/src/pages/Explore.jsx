@@ -9,7 +9,6 @@ function Explore() {
   const { getAllPosts, AllPosts } = usePost();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const { allSaves, getAllSaves } = useSave();
 
   useEffect(() => {
     async function fetchPosts() {
