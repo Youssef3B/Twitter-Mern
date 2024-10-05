@@ -8,21 +8,24 @@ import { PostProvider } from "./contexts/PostContext.jsx";
 import { CommentProvider } from "./contexts/CommentContext.jsx";
 import { LikeProvider } from "./contexts/LikeContext.jsx";
 import { SaveProvider } from "./contexts/SaveContext.jsx";
+import { FollowerProvider } from "./contexts/FollowerContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <SaveProvider>
-      <LikeProvider>
-        <CommentProvider>
-          <AuthUserProvider>
-            <UserProvider>
-              <PostProvider>
-                <App />
-              </PostProvider>
-            </UserProvider>
-          </AuthUserProvider>
-        </CommentProvider>
-      </LikeProvider>
-    </SaveProvider>
+    <FollowerProvider>
+      <SaveProvider>
+        <LikeProvider>
+          <CommentProvider>
+            <AuthUserProvider>
+              <UserProvider>
+                <PostProvider>
+                  <App />
+                </PostProvider>
+              </UserProvider>
+            </AuthUserProvider>
+          </CommentProvider>
+        </LikeProvider>
+      </SaveProvider>
+    </FollowerProvider>
   </StrictMode>
 );
