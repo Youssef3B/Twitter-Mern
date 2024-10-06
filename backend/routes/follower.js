@@ -13,13 +13,20 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const followers = await Follower.find().populate([
-      { path: "user", select: userArr },
-      { path: "user", select: userArr },
+      { path: "userWhoFollow", select: userArr },
+      { path: "userWhoFollowed", select: userArr },
     ]);
 
     res.status(200).json(followers);
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    res.status(500).json({
+      message: "Something went wrong",
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+    });
   }
 });
 
@@ -45,24 +52,23 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Something went wrong", error });
   }
 });
-/**
- * @desc     Delete a Follower from His Id
- * @route    /api/follower/:id
- * @method   DELETE
- * @access   public
- */
 
-router.delete("/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
+  const { userWhoFollow, userWhoFollowed } = req.body;
+
   try {
-    const follower = await Follower.findById(req.params.id);
-    if (follower) {
-      await Follower.findByIdAndDelete(req.params.id);
-      res.status(200).json({ message: "Follower deleted successfully" });
+    const result = await Follower.findOneAndDelete({
+      userWhoFollow,
+      userWhoFollowed,
+    });
+    if (result) {
+      res.status(200).json({ message: "Follow deleted successfully" });
     } else {
-      res.status(404).json({ message: "Follower not found" });
+      res.status(404).json({ message: "Follow relationship not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    res.status(500).json({ message: "Error deleting follow", error });
   }
 });
+
 module.exports = router;

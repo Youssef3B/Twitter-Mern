@@ -1,10 +1,63 @@
-import { createContext, useContext } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const FollowerContext = createContext();
 
 function FollowerProvider({ children }) {
+  const [allFollowers, setAllFollowers] = useState([]);
+
+  async function getAllFollowers() {
+    const url = `http://localhost:5000/api/followers`;
+
+    try {
+      const res = await axios.get(url);
+      if (res) {
+        setAllFollowers(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function addAFollow(data) {
+    const url = `http://localhost:5000/api/followers`;
+
+    try {
+      const res = await axios.post(url, data);
+      if (res) {
+        console.log("follow add success");
+        await getAllFollowers(); // Refresh the followers list
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deleteFollow(userWhoFollow, userWhoFollowed) {
+    const url = `http://localhost:5000/api/followers`;
+    try {
+      const res = await axios.delete(url, {
+        data: { userWhoFollow, userWhoFollowed },
+      });
+      if (res) {
+        console.log("follow deleted successfully");
+        await getAllFollowers(); // Refresh the followers list
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAllFollowers();
+  }, []);
+
   return (
-    <FollowerContext.Provider value={{}}>{children}</FollowerContext.Provider>
+    <FollowerContext.Provider
+      value={{ allFollowers, getAllFollowers, addAFollow, deleteFollow }}
+    >
+      {children}
+    </FollowerContext.Provider>
   );
 }
 
