@@ -38,16 +38,20 @@ function UserCard({ user }) {
       />
       <h3 className="font-semibold mt-2">{user?.fullName}</h3>
       <p className="text-gray-600 mb-6">{user?.userName}</p>
-      <button
-        className={`px-5 py-1 text-white rounded-full font-semibold transition-all ${
-          isFollowing
-            ? "bg-gray-500 hover:bg-gray-600"
-            : "bg-sky-500 hover:bg-sky-600"
-        }`}
-        onClick={handleSubmit}
-      >
-        {isFollowing ? "Unfollow" : "Follow"}
-      </button>
+
+      {/* Conditionally render the Follow/Unfollow button */}
+      {userAuth?._id !== user?._id && (
+        <button
+          className={`px-5 py-1 text-white rounded-full font-semibold transition-all ${
+            isFollowing
+              ? "bg-gray-500 hover:bg-gray-600"
+              : "bg-sky-500 hover:bg-sky-600"
+          }`}
+          onClick={handleSubmit}
+        >
+          {isFollowing ? "Unfollow" : "Follow"}
+        </button>
+      )}
     </div>
   );
 }
