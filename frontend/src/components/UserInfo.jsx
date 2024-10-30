@@ -1,6 +1,6 @@
 import { MdDateRange } from "react-icons/md";
 
-function UserInfo({ user }) {
+function UserInfo({ user, filterFollowers, filterFollowing }) {
   const formatJoinDate = (dateString) => {
     const date = new Date(dateString);
     const month = date.toLocaleString("default", { month: "long" });
@@ -24,10 +24,10 @@ function UserInfo({ user }) {
         </p>
         <div className="flex space-x-4">
           <p className="text-gray-500">
-            <span className="font-bold text-black">135 </span>Following
+            <span className="font-bold text-black">{filterFollowing.length} </span>Following
           </p>
           <p className="text-gray-500">
-            <span className="font-bold text-black">10 </span>Followers
+            <span className="font-bold text-black">{filterFollowers.length} </span>Followers
           </p>
           <p></p>
         </div>
