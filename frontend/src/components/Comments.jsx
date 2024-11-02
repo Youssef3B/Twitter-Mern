@@ -5,8 +5,16 @@ import { useComment } from "../contexts/CommentContext";
 
 function Comments({ id, user }) {
   const [text, setText] = useState("");
-  const { CreateComment, allComments, getAllComments } = useComment();
+  const { CreateComment, allComments, getAllComments, deleteComment } = useComment();
   const [commentsFiltred, setCommentsFiltred] = useState([]);
+
+  const [isUserCommented, setIsUserCommented] = useState(false);
+
+
+  // async function FilterComm() {
+  //   const res = allComments.filter((comment) => comment?.user?._id === user?._id);
+    
+  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -68,7 +76,7 @@ function Comments({ id, user }) {
 
       {/* Section Of Comments  */}
       {commentsFiltred.map((comment) => (
-        <Comment comment={comment} key={comment?._id} />
+        <Comment deleteComment={deleteComment} user={user} comment={comment} key={comment?._id} />
       ))}
     </div>
   );

@@ -31,12 +31,27 @@ function CommentProvider({ children }) {
       console.log(error);
     }
   }
+
+  async function deleteComment(id) {
+    const url = `http://localhost:5000/api/comments/${id}`;
+    try {
+      const res = await axios.delete(url);
+      if (res) {
+        toast.success('Comment Removed Successfully');
+        setAllComments((prevComments) => prevComments.filter(comment => comment._id !== id));
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Comment deletion failed");
+    }
+  }
+  
   useEffect(() => {
     getAllComments();
   }, []);
   return (
     <CommentContext.Provider
-      value={{ CreateComment, allComments, getAllComments }}
+      value={{ CreateComment, allComments, getAllComments, deleteComment }}
     >
       {children}
     </CommentContext.Provider>
