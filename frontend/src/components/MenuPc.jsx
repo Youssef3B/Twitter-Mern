@@ -32,12 +32,7 @@ function MenuPc() {
               </p>
             </li>
           </Link>
-          <li className="hover:text-sky-600 transition-all">
-            <p className="flex items-center space-x-3 text-2xl font-bold">
-              <IoIosNotificationsOutline size={24} />
-              <span>Notification</span>
-            </p>
-          </li>
+         
           <Link to={"peoples"}>
             <li className="hover:text-sky-600 transition-all">
               <p className="flex items-center space-x-3 text-2xl font-bold">

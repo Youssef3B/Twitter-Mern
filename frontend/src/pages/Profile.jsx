@@ -87,8 +87,11 @@ function Profile() {
 
       {/* Input if user profile is who is logged */}
       <div className="mx-8">
-        {authUser && authUser.id === id ? <Input /> : null}
-      </div>
+  {console.log("authUser:", authUser, "id:", id)}
+  {authUser && authUser?._id === id ? <Input /> : null}
+</div>
+
+
 
       {/* Posts */}
       <div className="mx-8">

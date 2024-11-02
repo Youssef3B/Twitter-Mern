@@ -14,7 +14,7 @@ function AppLayout() {
         </div> */}
         <Outlet />
       </div>
-      <WhoToFollow />
+      {/* <WhoToFollow /> */}
     </section>
   );
 }

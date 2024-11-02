@@ -16,6 +16,24 @@ function Post({ post }) {
   const [filterSaves, setFilterSaves] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
 
+  const calculateTimePassed = (createdAt) => {
+    const postDate = new Date(createdAt);
+    const now = new Date();
+    const diffInMinutes = Math.floor((now - postDate) / (1000 * 60));
+
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes}m ago`;
+    } else if (diffInMinutes < 1440) {
+      return `${Math.floor(diffInMinutes / 60)}h ago`;
+    } else {
+      const day = postDate.getDate().toString().padStart(2, "0");
+      const month = (postDate.getMonth() + 1).toString().padStart(2, "0");
+      const hours = postDate.getHours().toString().padStart(2, "0");
+      const minutes = postDate.getMinutes().toString().padStart(2, "0");
+      return `${day}/${month} ${hours}:${minutes}`;
+    }
+  };
+
   async function handleLikeToggle(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -81,21 +99,20 @@ function Post({ post }) {
       <div className="flex items-center space-x-3">
         <div>
           <img
-            className=" h-16 w-16 rounded-full object-cover object-center"
+            className="h-16 w-16 rounded-full object-cover object-center"
             src={`/uploads/${post?.user?.avatar}`}
             alt=""
           />
         </div>
         <div>
-          <div className="flex items-center space-x-2 ">
+          <div className="flex items-center space-x-2">
             <h3 className="font-semibold text-lg">{post?.user?.fullName}</h3>
-            <p className="text-gray-600">13h</p>
+            <p className="text-gray-600">{calculateTimePassed(post?.createdAt)}</p>
           </div>
           <h4 className="text-gray-600 font-medium">{post?.user?.userName}</h4>
         </div>
       </div>
 
-      {/* Link only wraps the title or the image */}
       <Link to={`/poste/${post?._id}`}>
         <h3 className="my-4 font-bold text-xl">{post?.title}</h3>
         {post?.image && (
@@ -112,7 +129,7 @@ function Post({ post }) {
           <button onClick={handleLikeToggle}>
             <span className="flex items-center space-x-1 cursor-pointer">
               {isLiked ? <FaHeart size={24} /> : <FaRegHeart size={24} />}
-              <p>{filterLikes.length}</p> {/* Display likes count */}
+              <p>{filterLikes.length}</p>
             </span>
           </button>
           <span className="flex items-center space-x-1 cursor-pointer">

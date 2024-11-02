@@ -25,6 +25,25 @@ function PostDetails() {
   const { likes, addLike, getAllLikes, deleteLike } = useLike();
   const { allSaves, addSave, deleteSave, getAllSaves } = useSave();
 
+
+  const calculateTimePassed = (createdAt) => {
+    const postDate = new Date(createdAt);
+    const now = new Date();
+    const diffInMinutes = Math.floor((now - postDate) / (1000 * 60));
+
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes}m ago`;
+    } else if (diffInMinutes < 1440) {
+      return `${Math.floor(diffInMinutes / 60)}h ago`;
+    } else {
+      const day = postDate.getDate().toString().padStart(2, "0");
+      const month = (postDate.getMonth() + 1).toString().padStart(2, "0");
+      const hours = postDate.getHours().toString().padStart(2, "0");
+      const minutes = postDate.getMinutes().toString().padStart(2, "0");
+      return `${day}/${month} ${hours}:${minutes}`;
+    }
+  };
+
   async function handleLikeToggle(e) {
     e.preventDefault();
     e.stopPropagation(); // Stop the click event from propagating to the Link
@@ -127,8 +146,8 @@ function PostDetails() {
                 <div>
                   <h3 className="font-semibold">
                     {post?.user?.fullName}
-                    <span className="text-sm font-light text-gray-600">
-                      13h
+                    <span className="text-md font-light ps-2 text-gray-600">
+                    {calculateTimePassed(post?.createdAt)}
                     </span>
                   </h3>
                   <p className="text-sm text-gray-600">
