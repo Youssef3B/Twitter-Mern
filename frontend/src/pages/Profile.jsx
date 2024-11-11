@@ -24,7 +24,7 @@ function Profile() {
 
   useEffect(() => {
     getAllPosts();
-    getAllFollowers();  // Ensure followers are fetched
+    getAllFollowers(); // Ensure followers are fetched
   }, []);
 
   useEffect(() => {
@@ -36,14 +36,18 @@ function Profile() {
 
   useEffect(() => {
     if (allFollowers && id) {
-      const filteredFollowers = allFollowers.filter((follow) => follow?.userWhoFollowed?._id === id);
+      const filteredFollowers = allFollowers.filter(
+        (follow) => follow?.userWhoFollowed?._id === id
+      );
       setFilterFollowers(filteredFollowers);
     }
   }, [allFollowers, id]);
 
   useEffect(() => {
     if (allFollowers && id) {
-      const filteredFollowers = allFollowers.filter((follow) => follow?.userWhoFollow?._id === id);
+      const filteredFollowers = allFollowers.filter(
+        (follow) => follow?.userWhoFollow?._id === id
+      );
       setFilterFollowing(filteredFollowers);
     }
   }, [allFollowers, id]);
@@ -58,9 +62,6 @@ function Profile() {
       fetchUser();
     }
   }, [id]);
-
-  console.log('Filtered Followers:', filterFollowers);  // Debugging line
-
 
   return (
     <section>
@@ -82,16 +83,21 @@ function Profile() {
 
       {/* UserInfo */}
       <div className="relative mt-[74px] mb-8 mx-8">
-        {loading ? <div>Loading...</div> : <UserInfo filterFollowing={filterFollowing} filterFollowers={filterFollowers} user={user} />}
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <UserInfo
+            filterFollowing={filterFollowing}
+            filterFollowers={filterFollowers}
+            user={user}
+          />
+        )}
       </div>
 
       {/* Input if user profile is who is logged */}
       <div className="mx-8">
-  {console.log("authUser:", authUser, "id:", id)}
-  {authUser && authUser?._id === id ? <Input /> : null}
-</div>
-
-
+        {authUser && authUser?._id === id ? <Input /> : null}
+      </div>
 
       {/* Posts */}
       <div className="mx-8">

@@ -6,15 +6,19 @@ import { useLike } from "../contexts/LikeContext";
 import { useSave } from "../contexts/SaveContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { usePost } from "../contexts/PostContext";
 
 function Post({ post }) {
   const { user } = useAuthUser();
   const { likes, addLike, getAllLikes, deleteLike } = useLike();
   const { allSaves, addSave, deleteSave, getAllSaves } = useSave();
+  const { editPost, getAllPosts, deletePost } = usePost();
   const [filterLikes, setFilterLikes] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [filterSaves, setFilterSaves] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showModalConfirmation, setShowModalConfirmation] = useState(false);
 
   const calculateTimePassed = (createdAt) => {
     const postDate = new Date(createdAt);
@@ -96,6 +100,24 @@ function Post({ post }) {
 
   return (
     <div className="my-4 border-2 p-4 rounded-lg">
+      <div className="float-right">
+        {user?._id === post?.user?._id && (
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-yellow-500 px-3 py-1 rounded-lg text-white"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => setShowModalConfirmation(true)}
+              className="bg-red-500 px-3 py-1 rounded-lg text-white"
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
       <div className="flex items-center space-x-3">
         <div>
           <img
@@ -107,7 +129,9 @@ function Post({ post }) {
         <div>
           <div className="flex items-center space-x-2">
             <h3 className="font-semibold text-lg">{post?.user?.fullName}</h3>
-            <p className="text-gray-600">{calculateTimePassed(post?.createdAt)}</p>
+            <p className="text-gray-600">
+              {calculateTimePassed(post?.createdAt)}
+            </p>
           </div>
           <h4 className="text-gray-600 font-medium">{post?.user?.userName}</h4>
         </div>
@@ -143,8 +167,146 @@ function Post({ post }) {
           </span>
         </button>
       </div>
+
+      {showModal && (
+        <ModalEditPost
+          editPost={editPost}
+          post={post}
+          onClose={() => setShowModal(false)}
+          getAllPosts={getAllPosts}
+        />
+      )}
+      {showModalConfirmation && (
+        <ModalConfirmation
+          deletePost={deletePost}
+          onClose={() => setShowModalConfirmation(false)}
+          post={post}
+          getAllPosts={getAllPosts}
+        />
+      )}
     </div>
   );
 }
 
+function ModalEditPost({ onClose, post, editPost, getAllPosts }) {
+  const [imageSrc, setImageSrc] = useState(post?.image);
+  const [title, setTitle] = useState(post?.title);
+
+  // Function to handle image change
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImageSrc(imageUrl);
+    }
+  };
+
+  // Function to simulate click on the hidden file input
+  const triggerFileInput = () => {
+    document.getElementById("fileInput").click();
+  };
+
+  async function HandleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("image", document.getElementById("fileInput").files[0]);
+    await editPost(post?._id, formData);
+    onClose(true);
+    await getAllPosts();
+  }
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg w-96">
+        <button
+          onClick={onClose}
+          className="bg-red-500 text-white px-3 py-1 rounded-lg float-right"
+        >
+          Close
+        </button>
+        <h2 className="text-lg font-semibold">Edit Post</h2>
+        <form onSubmit={HandleSubmit} className="max-w-sm mx-auto">
+          <div className="mb-5">
+            <label
+              htmlFor="description"
+              className="block mb-2 text-sm font-medium text-gray-900 "
+            >
+              Description
+            </label>
+            <textarea
+              type="text"
+              id="description"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              placeholder=""
+              required=""
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          {post && post?.image ? (
+            <div className="mb-5">
+              <img
+                onClick={triggerFileInput}
+                className="w-full h-60 object-cover rounded-lg cursor-pointer"
+                src={imageSrc}
+                alt="Post Thumbnail"
+              />
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Edit Post
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function ModalConfirmation({ onClose, deletePost, post, getAllPosts }) {
+  async function handleDeletePost(e) {
+    e.preventDefault();
+    await deletePost(post?._id);
+    await getAllPosts();
+    onClose();
+  }
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg w-96">
+        <div>
+          <h2 className="text-center my-4 text-xl font-bold">
+            Are You Sure You Want Delete This Post ?
+          </h2>
+          <div className="flex justify-end space-x-2">
+            <form onSubmit={handleDeletePost} action="">
+              <button className="bg-red-500 px-3 py-1 rounded-lg text-white">
+                Delete
+              </button>
+            </form>
+
+            <button
+              onClick={() => onClose()}
+              className="bg-yellow-500 px-3 py-1 rounded-lg text-white"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 export default Post;

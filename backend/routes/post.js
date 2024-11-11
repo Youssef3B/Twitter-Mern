@@ -5,16 +5,24 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 
+// Set up Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../../frontend/public/uploads"));
+    cb(null, "./../frontend/public/uploads"); // Replace with your desired upload directory
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, `${Date.now()}${path.extname(file.originalname)}`); // Generate unique filename
   },
 });
 
-const upload = multer({ storage });
+// Create the Multer upload instance
+const upload = multer({ storage: storage });
+
+/**
+ * @path /api/posts/:id
+ * @method PUT
+ * @description Update a post with an image
+ */
 
 /**
  * @desc Get All Posts
@@ -111,16 +119,14 @@ router.post("/like", async (req, res) => {
  * @access public
  */
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.single("image"), async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(
       req.params.id,
       {
         $set: {
-          user: req.body.user,
           title: req.body.title,
-          image: req.body.image,
-          likes: req.body.likes,
+          image: req.file ? `/uploads/${req.file.filename}` : req.body.image,
         },
       },
       { new: true }
@@ -142,5 +148,19 @@ router.put("/:id", async (req, res) => {
  * @method DELETE
  * @access public
  */
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post) {
+      await Post.findByIdAndDelete(req.params.id);
+      res.status(200).json({ message: "Post deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Post not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Post went wrong", error });
+  }
+});
 
 module.exports = router;

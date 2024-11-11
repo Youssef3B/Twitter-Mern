@@ -8,9 +8,7 @@ import { useAuthUser } from "../contexts/AuthContext";
 
 function MenuPc() {
   const { logout, user } = useAuthUser();
-  if (user) {
-    console.log(user._id);
-  }
+
   return (
     <div className=" w-[320px] fixed h-full py-4 px-10 ">
       <div>
@@ -32,7 +30,7 @@ function MenuPc() {
               </p>
             </li>
           </Link>
-         
+
           <Link to={"peoples"}>
             <li className="hover:text-sky-600 transition-all">
               <p className="flex items-center space-x-3 text-2xl font-bold">

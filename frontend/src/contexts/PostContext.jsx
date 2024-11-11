@@ -48,6 +48,33 @@ function PostProvider({ children }) {
     }
   }
 
+  async function deletePost(id) {
+    const url = `http://localhost:5000/api/poste/${id}`;
+    try {
+      const res = await axios.delete(url);
+      if (res) {
+        console.log("post deleted succufully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function editPost(id, data) {
+    const url = `http://localhost:5000/api/poste/${id}`;
+    try {
+      const res = await axios.put(url, data, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Ensure multipart
+        },
+      });
+      if (res) {
+        console.log("Post edited successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <PostContext.Provider
       value={{
@@ -56,6 +83,8 @@ function PostProvider({ children }) {
         getAllPosts,
         getPostFromHisId,
         post,
+        editPost,
+        deletePost,
       }}
     >
       {children}
