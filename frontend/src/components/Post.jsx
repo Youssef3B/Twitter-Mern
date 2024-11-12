@@ -83,7 +83,7 @@ function Post({ post }) {
 
   useEffect(() => {
     if (allSaves) {
-      const res = allSaves.filter((save) => save?.post._id === post?._id);
+      const res = allSaves.filter((save) => save?.post?._id === post?._id);
       setFilterSaves(res);
     }
   }, [allSaves, post?._id]);

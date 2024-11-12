@@ -36,7 +36,7 @@ function Modal({ isOpen, onClose, children }) {
 }
 
 function Input() {
-  const { createPost } = usePost();
+  const { createPost, getAllPosts } = usePost();
   const { user: authUser } = useAuthUser();
   const { user, getUserFromHisId } = useUser();
   const [files, setFiles] = useState();
@@ -68,7 +68,8 @@ function Input() {
     if (image) {
       formData.append("image", image);
     }
-    createPost(formData);
+    await createPost(formData);
+    await getAllPosts();
     setFiles();
     setImage();
     setText("");
