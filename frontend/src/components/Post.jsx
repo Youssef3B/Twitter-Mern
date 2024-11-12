@@ -118,24 +118,28 @@ function Post({ post }) {
           </div>
         )}
       </div>
-      <div className="flex items-center space-x-3">
-        <div>
-          <img
-            className="h-16 w-16 sm:w-12 sm:h-12 rounded-full object-cover object-center"
-            src={`/uploads/${post?.user?.avatar}`}
-            alt=""
-          />
-        </div>
-        <div>
-          <div className="flex items-center space-x-2">
-            <h3 className="font-semibold text-lg">{post?.user?.fullName}</h3>
-            <p className="text-gray-600">
-              {calculateTimePassed(post?.createdAt)}
-            </p>
+      <Link to={`/profile/${post?.user?._id}`}>
+        <div className="flex items-center space-x-3">
+          <div>
+            <img
+              className="h-16 w-16 sm:w-12 sm:h-12 rounded-full object-cover object-center"
+              src={`/uploads/${post?.user?.avatar}`}
+              alt=""
+            />
           </div>
-          <h4 className="text-gray-600 font-medium">{post?.user?.userName}</h4>
+          <div>
+            <div className="flex items-center space-x-2">
+              <h3 className="font-semibold text-lg">{post?.user?.fullName}</h3>
+              <p className="text-gray-600">
+                {calculateTimePassed(post?.createdAt)}
+              </p>
+            </div>
+            <h4 className="text-gray-600 font-medium">
+              {post?.user?.userName}
+            </h4>
+          </div>
         </div>
-      </div>
+      </Link>
 
       <Link to={`/poste/${post?._id}`}>
         <h3 className="my-4 font-bold text-xl">{post?.title}</h3>

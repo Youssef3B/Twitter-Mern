@@ -1,7 +1,7 @@
 import { CiBookmark } from "react-icons/ci";
 import { FaRegComment } from "react-icons/fa";
 import { usePost } from "../contexts/PostContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Comments from "../components/Comments";
 import { useAuthUser } from "../contexts/AuthContext";
@@ -24,7 +24,6 @@ function PostDetails() {
 
   const { likes, addLike, getAllLikes, deleteLike } = useLike();
   const { allSaves, addSave, deleteSave, getAllSaves } = useSave();
-
 
   const calculateTimePassed = (createdAt) => {
     const postDate = new Date(createdAt);
@@ -137,25 +136,28 @@ function PostDetails() {
         <section>
           <div>
             <div className="py-4 px-8 border my-8 mx-5">
-              <div className="flex items-center space-x-2">
-                <img
-                  className="w-12 h-12 rounded-full object-cover"
-                  src={`/uploads/${post?.user?.avatar}`}
-                  alt=""
-                />
-                <div>
-                  <h3 className="font-semibold">
-                    {post?.user?.fullName}
-                    <span className="text-md font-light ps-2 text-gray-600">
-                    {calculateTimePassed(post?.createdAt)}
-                    </span>
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {" "}
-                    {post?.user?.userName}
-                  </p>
+              <Link to={`/profile/${post?.user?._id}`}>
+                <div className="flex items-center space-x-2">
+                  <img
+                    className="w-12 h-12 rounded-full object-cover"
+                    src={`/uploads/${post?.user?.avatar}`}
+                    alt=""
+                  />
+                  <div>
+                    <h3 className="font-semibold">
+                      {post?.user?.fullName}
+                      <span className="text-md font-light ps-2 text-gray-600">
+                        {calculateTimePassed(post?.createdAt)}
+                      </span>
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {" "}
+                      {post?.user?.userName}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
+
               <div className="my-4">
                 <h3 className="font-semibold text-xl">{post?.title}</h3>
                 {post?.image && (

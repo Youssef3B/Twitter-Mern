@@ -66,7 +66,7 @@ function Profile() {
   return (
     <section>
       {/* Head Of Page Profile */}
-      <Return user={user} />
+      <Return filterPosts={filterPosts} user={user} />
 
       {/* Banner of the Page Profile */}
       {loading ? (
