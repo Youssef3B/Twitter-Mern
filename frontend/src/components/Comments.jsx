@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import Comment from "./Comment";
 import { useComment } from "../contexts/CommentContext";
+import { useUser } from "../contexts/UserContext";
 
 function Comments({ id, user }) {
   const [text, setText] = useState("");
@@ -10,6 +11,7 @@ function Comments({ id, user }) {
   const [commentsFiltred, setCommentsFiltred] = useState([]);
 
   const [isUserCommented, setIsUserCommented] = useState(false);
+  const { user: authUser, getUserFromHisId } = useUser();
 
   // async function FilterComm() {
   //   const res = allComments.filter((comment) => comment?.user?._id === user?._id);
@@ -44,6 +46,10 @@ function Comments({ id, user }) {
     filterComments();
   }, [allComments, id]);
 
+  useEffect(() => {
+    getUserFromHisId(user?._id);
+  }, [user?._id]);
+
   return (
     <div className="my-6">
       <form className="w-full" onSubmit={handleSubmit} action="">
@@ -52,7 +58,7 @@ function Comments({ id, user }) {
           <div>
             <img
               className="w-12 h-12 rounded-full object-cover"
-              src={`/uploads/${user?.avatar}`}
+              src={`/uploads/${authUser?.avatar}`}
               alt=""
             />
           </div>
