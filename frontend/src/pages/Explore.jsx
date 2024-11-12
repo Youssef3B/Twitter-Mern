@@ -27,7 +27,7 @@ function Explore() {
       {loading ? (
         <LoadingPost />
       ) : (
-        <div className="grid grid-cols-2 gap-x-4 my-4">
+        <div className="grid grid-cols-1 gap-x-4 my-4">
           {AllPosts &&
             AllPosts.filter((post) => {
               return search === ""

@@ -75,12 +75,12 @@ function Comments({ id, user }) {
       </form>
 
       {/* Section Of Comments  */}
-      {commentsFiltred.map((comment) => (
+      {commentsFiltred.map((comment, index) => (
         <Comment
           deleteComment={deleteComment}
           user={user}
           comment={comment}
-          key={comment?._id}
+          key={index}
         />
       ))}
     </div>

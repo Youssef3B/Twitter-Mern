@@ -121,7 +121,7 @@ function Post({ post }) {
       <div className="flex items-center space-x-3">
         <div>
           <img
-            className="h-16 w-16 rounded-full object-cover object-center"
+            className="h-16 w-16 sm:w-12 sm:h-12 rounded-full object-cover object-center"
             src={`/uploads/${post?.user?.avatar}`}
             alt=""
           />
