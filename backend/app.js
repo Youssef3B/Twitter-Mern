@@ -31,12 +31,7 @@ mongoose
 // Init App
 const app = express();
 // Apply Middlewares
-app.use(
-  cors({
-    origin: "https://front-inky-ten.vercel.app", // specify your frontend URL
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
