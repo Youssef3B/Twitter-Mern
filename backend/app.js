@@ -33,10 +33,11 @@ const app = express();
 // Apply Middlewares
 app.use(
   cors({
-    origin: "*", // or specify allowed origins as needed
+    origin: "https://front-inky-ten.vercel.app", // specify your frontend URL
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
