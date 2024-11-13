@@ -62,7 +62,7 @@ function Comments({ id, user }) {
               alt=""
             />
           </div>
-          <div className="w-[600px]">
+          <div className="xl:w-[600px] w-48">
             <InputEmoji
               value={text}
               onChange={setText}

@@ -107,13 +107,13 @@ function Post({ post }) {
               onClick={() => setShowModal(true)}
               className="bg-yellow-500 px-3 py-1 rounded-lg text-white"
             >
-              Edit
+              E
             </button>
             <button
               onClick={() => setShowModalConfirmation(true)}
               className="bg-red-500 px-3 py-1 rounded-lg text-white"
             >
-              Delete
+              D
             </button>
           </div>
         )}

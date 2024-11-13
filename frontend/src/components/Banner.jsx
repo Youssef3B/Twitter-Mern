@@ -6,7 +6,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 
   return (
     <div className="fixed inset-0 transition-all bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white w-[800px] p-6 rounded-lg relative">
+      <div className="bg-white w-full max-w-[95%] md:max-w-lg lg:max-w-xl xl:max-w-2xl p-6 rounded-lg relative">
         <button
           onClick={onClose}
           className="absolute top-2 right-2 w-6 h-6 text-gray-600 hover:text-gray-800"
@@ -109,11 +109,11 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
   return (
     <div className="w-full">
       <div
-        className="relative w-full h-[340px] bg-cover bg-center"
+        className="relative w-full h-[200px] sm:h-[300px] md:h-[340px] bg-cover bg-center"
         style={{ backgroundImage: `url(${bannerPreview})` }}
       >
         <img
-          className=" absolute w-36 h-36 bottom-[-36px] left-3 rounded-full object-cover border-2  border-black"
+          className="absolute w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 bottom-[-24px] sm:bottom-[-28px] md:bottom-[-36px] left-3 rounded-full object-cover border-2 border-black"
           src={avatarPreview}
           alt=""
         />
@@ -136,7 +136,7 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
           <div className="relative">
             <img
               src={bannerPreview}
-              className="w-full h-96 object-cover cursor-pointer hover:opacity-70"
+              className="w-full h-40 sm:h-52 md:h-96 object-cover cursor-pointer hover:opacity-70"
               alt="banner"
               onClick={handleBannerClick}
             />
@@ -147,9 +147,9 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
               onChange={handleBannerChange}
               accept="image/*"
             />
-            <div className="absolute bottom-[-64px] left-4">
+            <div className="absolute bottom-[-48px] sm:bottom-[-64px] left-4">
               <img
-                className="w-32 h-32 object-cover rounded-full border-2 border-black cursor-pointer"
+                className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 object-cover rounded-full border-2 border-black cursor-pointer"
                 src={avatarPreview}
                 onClick={handleAvatarClick}
                 alt="avatar"
@@ -165,7 +165,7 @@ function Banner({ UpdateUserFromHisId, id, user, getUserFromHisId, authUser }) {
           </div>
 
           <div className="mt-24">
-            <div className="grid grid-cols-2 gap-x-10 gap-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
               <div className="block">
                 <label className="block text-lg font-bold" htmlFor="fullName">
                   Full Name

@@ -162,7 +162,7 @@ function PostDetails() {
                 <h3 className="font-semibold text-xl">{post?.title}</h3>
                 {post?.image && (
                   <img
-                    className="my-4 w-full h-[600px] object-cover rounded-lg"
+                    className="my-4 w-full  object-cover rounded-lg"
                     src={post?.image}
                     alt=""
                   />

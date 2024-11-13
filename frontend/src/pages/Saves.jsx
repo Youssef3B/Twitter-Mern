@@ -36,7 +36,7 @@ function Saves() {
       {isLoading ? (
         <LoadingPost />
       ) : (
-        <div className="grid grid-cols-2 gap-6 my-4">
+        <div className="grid xl:grid-cols-2 gap-6 my-4">
           {filterSaves &&
             filterSaves
               .filter((save) => {

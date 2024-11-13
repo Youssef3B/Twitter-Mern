@@ -19,7 +19,7 @@ function People() {
       {loading ? (
         <LoadingUser />
       ) : (
-        <div className="grid grid-cols-3 gap-4 my-8">
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-4 my-8">
           {allUsers &&
             allUsers
               .filter((item) => {
