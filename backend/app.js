@@ -21,6 +21,14 @@ const savedPath = require("./routes/saved");
 
 const port = process.env.Port || 5000;
 
+app.use(cors(
+  {
+    origin: ["https://deploy-mern-1whq.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+));
+
 // Connection to Database
 
 mongoose
@@ -30,6 +38,7 @@ mongoose
 
 // Init App
 const app = express();
+
 // Apply Middlewares
 app.use(express.json());
 app.use(cookieParser());
