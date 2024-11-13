@@ -1,5 +1,12 @@
 const express = require("express");
 var cors = require("cors");
+app.use(
+  cors({
+    origin: "*", // or specify allowed origins as needed
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 const cookieParser = require("cookie-parser");
 
 const mongoose = require("mongoose");
@@ -34,13 +41,6 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  cors({
-    origin: "*", // or specify allowed origins as needed
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
 
 // Routes
 
