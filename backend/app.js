@@ -1,5 +1,13 @@
 const express = require("express");
 var cors = require("cors");
+
+const cookieParser = require("cookie-parser");
+
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
 app.use(
   cors({
     origin: "*", // or specify allowed origins as needed
@@ -7,12 +15,6 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-const cookieParser = require("cookie-parser");
-
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-
-dotenv.config();
 
 // Get Routes
 
