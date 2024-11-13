@@ -19,8 +19,7 @@ function AuthUserProvider({ children }) {
   async function login(email, password) {
     const data = { email, password };
     try {
-      const url =
-        "https://twitter-mern-backend-nlub.onrender.com/api/auth/login";
+      const url = "https://backend-opal-sigma.vercel.app/api/auth/login";
       const res = await axios.post(url, data);
       if (res.data.data) {
         const token = res.data.data;
