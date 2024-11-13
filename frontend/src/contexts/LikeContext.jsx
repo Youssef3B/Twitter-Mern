@@ -8,6 +8,7 @@ function LikeProvider({ children }) {
   const [likes, setLikes] = useState([]);
 
   async function getAllLikes() {
+    //test
     const url = `https://backend-opal-sigma.vercel.app/api/likes`;
     try {
       const res = await axios.get(url);
