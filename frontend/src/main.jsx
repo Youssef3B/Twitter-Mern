@@ -9,7 +9,6 @@ import { CommentProvider } from "./contexts/CommentContext.jsx";
 import { LikeProvider } from "./contexts/LikeContext.jsx";
 import { SaveProvider } from "./contexts/SaveContext.jsx";
 import { FollowerProvider } from "./contexts/FollowerContext.jsx";
-axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById("root")).render(
   <>
