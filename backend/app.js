@@ -31,15 +31,15 @@ mongoose
 // Init App
 const app = express();
 // Apply Middlewares
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     origin: "*", // or specify allowed origins as needed
     credentials: true,
   })
 );
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 
 // Routes
 
