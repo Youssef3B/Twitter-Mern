@@ -21,7 +21,7 @@ function CommentProvider({ children }) {
   }
 
   async function getAllComments() {
-    const url = `http://localhost:5000/api/comments`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/comments`;
     try {
       const res = await axios.get(url);
       if (res) {

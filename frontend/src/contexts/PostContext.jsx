@@ -20,7 +20,7 @@ function PostProvider({ children }) {
   }
 
   async function getAllPosts() {
-    const url = `http://localhost:5000/api/poste`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/poste`;
     try {
       const res = await axios.get(url);
       if (res) {
