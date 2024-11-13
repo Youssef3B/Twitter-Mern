@@ -5,4 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   "eslint.options": { setting: true },
+  build: {
+    outDir: "dist", // This should be 'dist' by default
+  },
 });
