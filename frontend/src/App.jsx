@@ -10,8 +10,10 @@ import Explore from "./pages/Explore";
 import Saves from "./pages/Saves";
 import People from "./pages/People";
 import PostDetails from "./pages/PostDetails";
+import axios from "axios";
 
 function App() {
+  axios.defaults.withCredentials = true;
   return (
     <BrowserRouter>
       <Routes>
