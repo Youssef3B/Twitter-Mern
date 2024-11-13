@@ -7,7 +7,7 @@ function LikeProvider({ children }) {
   const [likes, setLikes] = useState([]);
 
   async function getAllLikes() {
-    const url = `http://localhost:5000/api/likes`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/likes`;
     try {
       const res = await axios.get(url);
       if (res) {
@@ -19,7 +19,7 @@ function LikeProvider({ children }) {
   }
 
   async function addLike(data) {
-    const url = `http://localhost:5000/api/likes`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/likes`;
     try {
       const res = await axios.post(url, data);
       if (res) {
@@ -31,7 +31,7 @@ function LikeProvider({ children }) {
   }
 
   async function deleteLike(userId, postId) {
-    const url = `http://localhost:5000/api/likes`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/likes`;
     try {
       const res = await axios.delete(url, { data: { userId, postId } });
       if (res) {

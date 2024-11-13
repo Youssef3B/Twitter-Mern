@@ -19,7 +19,7 @@ function AuthUserProvider({ children }) {
   async function login(email, password) {
     const data = { email, password };
     try {
-      const url = "http://localhost:5000/api/auth/login";
+      const url = "https://twitter-mern-kappa.vercel.app/api/auth/login";
       const res = await axios.post(url, data);
       if (res.data.data) {
         const token = res.data.data;

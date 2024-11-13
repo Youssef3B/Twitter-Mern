@@ -7,7 +7,7 @@ const CommentContext = createContext();
 function CommentProvider({ children }) {
   const [allComments, setAllComments] = useState([]);
   async function CreateComment(data) {
-    const url = `http://localhost:5000/api/comments`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/comments`;
 
     try {
       const res = await axios.post(url, data);
@@ -33,19 +33,21 @@ function CommentProvider({ children }) {
   }
 
   async function deleteComment(id) {
-    const url = `http://localhost:5000/api/comments/${id}`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/comments/${id}`;
     try {
       const res = await axios.delete(url);
       if (res) {
-        toast.success('Comment Removed Successfully');
-        setAllComments((prevComments) => prevComments.filter(comment => comment._id !== id));
+        toast.success("Comment Removed Successfully");
+        setAllComments((prevComments) =>
+          prevComments.filter((comment) => comment._id !== id)
+        );
       }
     } catch (error) {
       console.log(error);
       toast.error("Comment deletion failed");
     }
   }
-  
+
   useEffect(() => {
     getAllComments();
   }, []);

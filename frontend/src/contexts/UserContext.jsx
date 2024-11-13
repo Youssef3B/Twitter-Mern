@@ -11,7 +11,7 @@ function UserProvider({ children }) {
     if (!id) {
       return;
     }
-    const url = `http://localhost:5000/api/user/getUserById/${id}`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/user/getUserById/${id}`;
     try {
       const res = await axios.get(url);
       if (res.data) {
@@ -23,7 +23,7 @@ function UserProvider({ children }) {
   }
 
   async function UpdateUserFromHisId(id, formData) {
-    const url = `http://localhost:5000/api/user/editUserById/${id}`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/user/editUserById/${id}`;
 
     try {
       const res = await axios.put(url, formData, {
@@ -41,7 +41,7 @@ function UserProvider({ children }) {
   }
 
   async function getAllUsers() {
-    const url = `http://localhost:5000/api/user/allusers`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/user/allusers`;
     try {
       const res = await axios.get(url);
       if (res) {

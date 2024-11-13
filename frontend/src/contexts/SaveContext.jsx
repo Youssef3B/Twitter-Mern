@@ -7,7 +7,7 @@ function SaveProvider({ children }) {
   const [allSaves, setAllSaves] = useState([]);
 
   async function getAllSaves() {
-    const url = `http://localhost:5000/api/saves`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/saves`;
     try {
       const res = await axios.get(url);
       if (res) {
@@ -19,7 +19,7 @@ function SaveProvider({ children }) {
   }
 
   async function addSave(data) {
-    const url = `http://localhost:5000/api/saves`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/saves`;
     try {
       const res = await axios.post(url, data);
       if (res) {
@@ -30,7 +30,7 @@ function SaveProvider({ children }) {
     }
   }
   async function deleteSave(userId, postId) {
-    const url = `http://localhost:5000/api/saves`;
+    const url = `https://twitter-mern-kappa.vercel.app/api/saves`;
 
     // No need to pass userId and postId in the URL
 
