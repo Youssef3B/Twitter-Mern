@@ -20,7 +20,7 @@ const port = process.env.Port || 5000;
 // Apply CORS before any other middleware or route
 app.use(
   cors({
-    origin: ["https://twitter-mern-frontend-two.vercel.app"],
+    origin: ["https://twitter-mern-frontend.onrender.com"],
     methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true,
   })
