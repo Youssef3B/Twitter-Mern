@@ -4,8 +4,11 @@ import Search from "../components/Search";
 import { useSave } from "../contexts/SaveContext";
 import { useAuthUser } from "../contexts/AuthContext";
 import LoadingPost from "../components/LoadingPost";
+import axios from "axios";
 
 function Saves() {
+  axios.defaults.withCredentials = true;
+
   const { allSaves } = useSave();
   const [filterSaves, setFilterSaves] = useState([]);
   const { user } = useAuthUser();

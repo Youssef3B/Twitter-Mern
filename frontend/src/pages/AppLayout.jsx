@@ -2,8 +2,11 @@ import { Outlet } from "react-router-dom";
 import MenuPc from "../components/MenuPc";
 import WhoToFollow from "../components/WhoToFollow";
 import MenuPhone from "../components/MenuPhone";
+import axios from "axios";
 
 function AppLayout() {
+  axios.defaults.withCredentials = true;
+
   return (
     <section className="grid grid-cols-1 xl:grid-cols-4 gap-4  xl:px-36">
       {/* Hide MenuPc on xlaller screens */}

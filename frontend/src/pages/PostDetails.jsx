@@ -11,6 +11,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 
 function PostDetails() {
+  axios.defaults.withCredentials = true;
+
   const { id } = useParams();
   const { post, getPostFromHisId } = usePost();
   const { user } = useAuthUser();
@@ -225,5 +227,6 @@ function PostDetails() {
 import LoadingPost from "../components/LoadingPost";
 import { useSave } from "../contexts/SaveContext";
 import { useComment } from "../contexts/CommentContext";
+import axios from "axios";
 
 export default PostDetails;

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthUser } from "../contexts/AuthContext";
+import axios from "axios";
 
 function Login() {
+  axios.defaults.withCredentials = true;
+
   const { login } = useAuthUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

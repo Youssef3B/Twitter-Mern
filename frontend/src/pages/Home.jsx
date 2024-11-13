@@ -4,8 +4,11 @@ import Posts from "../components/Posts";
 import { useAuthUser } from "../contexts/AuthContext";
 import { useFollower } from "../contexts/FollowerContext";
 import { usePost } from "../contexts/PostContext";
+import axios from "axios";
 
 function Home() {
+  axios.defaults.withCredentials = true;
+
   const { AllPosts, getAllPosts } = usePost();
   const { user } = useAuthUser();
   const { allFollowers, getAllFollowers } = useFollower();
@@ -21,7 +24,7 @@ function Home() {
     if (user && allFollowers) {
       const followedUsers = allFollowers
         .filter((follower) => follower?.userWhoFollow?._id === user._id)
-        .map((follower) => follower.userWhoFollowed._id); 
+        .map((follower) => follower.userWhoFollowed._id);
       setUsers2(followedUsers);
     }
   }, [allFollowers, user]);
@@ -35,7 +38,7 @@ function Home() {
     }
   }, [AllPosts, users2]);
 
-  if(postsFiltered){
+  if (postsFiltered) {
     console.log(postsFiltered);
   }
 
@@ -44,7 +47,7 @@ function Home() {
       <div>
         <h1 className="font-bold text-2xl my-3">Home</h1>
         <Input />
-        <Posts posts={postsFiltered} /> 
+        <Posts posts={postsFiltered} />
       </div>
     </div>
   );

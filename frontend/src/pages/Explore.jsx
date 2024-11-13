@@ -4,8 +4,11 @@ import Search from "../components/Search";
 import { usePost } from "../contexts/PostContext";
 import LoadingPost from "../components/LoadingPost";
 import { useSave } from "../contexts/SaveContext";
+import axios from "axios";
 
 function Explore() {
+  axios.defaults.withCredentials = true;
+
   const { getAllPosts, AllPosts } = usePost();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);

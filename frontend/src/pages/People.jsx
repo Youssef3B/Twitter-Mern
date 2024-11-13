@@ -4,8 +4,11 @@ import UserCard from "../components/UserCard";
 import { useUser } from "../contexts/UserContext";
 import LoadingUser from "../components/LoadingUser";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function People() {
+  axios.defaults.withCredentials = true;
+
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const { allUsers, getAllUsers } = useUser();

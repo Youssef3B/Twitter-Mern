@@ -10,8 +10,11 @@ import LoadingBanner from "../components/LoadingBanner";
 import { useAuthUser } from "../contexts/AuthContext";
 import { usePost } from "../contexts/PostContext";
 import { useFollower } from "../contexts/FollowerContext";
+import axios from "axios";
 
 function Profile() {
+  axios.defaults.withCredentials = true;
+
   const [loading, setLoading] = useState(true);
   const [filterPosts, setFilterPosts] = useState([]);
   const [filterFollowers, setFilterFollowers] = useState([]);
