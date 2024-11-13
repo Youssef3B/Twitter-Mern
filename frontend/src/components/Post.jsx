@@ -7,12 +7,17 @@ import { useSave } from "../contexts/SaveContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { usePost } from "../contexts/PostContext";
+import { useComment } from "../contexts/CommentContext";
 
 function Post({ post }) {
   const { user } = useAuthUser();
   const { likes, addLike, getAllLikes, deleteLike } = useLike();
   const { allSaves, addSave, deleteSave, getAllSaves } = useSave();
   const { editPost, getAllPosts, deletePost } = usePost();
+  const { CreateComment, allComments, getAllComments, deleteComment } =
+    useComment();
+  const [commentsFiltred, setCommentsFiltred] = useState([]);
+
   const [filterLikes, setFilterLikes] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [filterSaves, setFilterSaves] = useState([]);
@@ -21,7 +26,11 @@ function Post({ post }) {
   const [showModalConfirmation, setShowModalConfirmation] = useState(false);
 
   const calculateTimePassed = (createdAt) => {
+    if (!createdAt) return "Unknown time"; // Return a default message if createdAt is missing or undefined
+
     const postDate = new Date(createdAt);
+    if (isNaN(postDate)) return "Invalid date"; // Handle invalid date
+
     const now = new Date();
     const diffInMinutes = Math.floor((now - postDate) / (1000 * 60));
 
@@ -98,6 +107,21 @@ function Post({ post }) {
     setIsSaved(hasSaved);
   }, [filterSaves, user]);
 
+  useEffect(() => {
+    function filterComments() {
+      const filteredComments = allComments
+        .filter((comment) => comment?.post?._id === post?._id)
+        .reverse(); // Reverse the order of comments
+      setCommentsFiltred(filteredComments);
+    }
+
+    filterComments();
+  }, [allComments, post?.id]);
+
+  if (post) {
+    console.log(post);
+  }
+
   return (
     <div className="my-4 border-2 p-4 rounded-lg">
       <div className="float-right">
@@ -162,7 +186,7 @@ function Post({ post }) {
           </button>
           <span className="flex items-center space-x-1 cursor-pointer">
             <FaRegComment size={18} />
-            <p>0</p>
+            <p>{commentsFiltred.length}</p>
           </span>
         </div>
         <button onClick={handleSaveToggle}>
@@ -214,12 +238,19 @@ function ModalEditPost({ onClose, post, editPost, getAllPosts }) {
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("image", document.getElementById("fileInput").files[0]);
+
+    // Check if a new image file has been selected
+    if (document.getElementById("fileInput").files[0]) {
+      formData.append("image", document.getElementById("fileInput").files[0]);
+    } else {
+      // If no new file, use the existing post.image value
+      formData.append("image", post.image);
+    }
+
     await editPost(post?._id, formData);
     onClose(true);
     await getAllPosts();
   }
-
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg w-96">

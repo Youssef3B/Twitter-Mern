@@ -24,6 +24,9 @@ function PostDetails() {
 
   const { likes, addLike, getAllLikes, deleteLike } = useLike();
   const { allSaves, addSave, deleteSave, getAllSaves } = useSave();
+  const { CreateComment, allComments, getAllComments, deleteComment } =
+    useComment();
+  const [commentsFiltred, setCommentsFiltred] = useState([]);
 
   const calculateTimePassed = (createdAt) => {
     const postDate = new Date(createdAt);
@@ -128,6 +131,17 @@ function PostDetails() {
     console.log(allSaves);
   }
 
+  useEffect(() => {
+    function filterComments() {
+      const filteredComments = allComments
+        .filter((comment) => comment?.post?._id === id)
+        .reverse(); // Reverse the order of comments
+      setCommentsFiltred(filteredComments);
+    }
+
+    filterComments();
+  }, [allComments, id]);
+
   return (
     <>
       {Loading ? (
@@ -185,7 +199,7 @@ function PostDetails() {
                   </form>
                   <span className="flex items-center space-x-1 cursor-pointer">
                     <FaRegComment size={18} />
-                    <p>0</p>
+                    <p>{commentsFiltred.length}</p>
                   </span>
                 </div>
                 <form onSubmit={handleSaveToggle} action="">
@@ -210,5 +224,6 @@ function PostDetails() {
 }
 import LoadingPost from "../components/LoadingPost";
 import { useSave } from "../contexts/SaveContext";
+import { useComment } from "../contexts/CommentContext";
 
 export default PostDetails;
