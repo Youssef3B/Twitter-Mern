@@ -21,13 +21,13 @@ const savedPath = require("./routes/saved");
 
 const port = process.env.Port || 5000;
 
-app.use(cors(
-  {
-    origin: ["https://deploy-mern-1whq.vercel.app"],
+app.use(
+  cors({
+    origin: ["https://twitter-mern-frontend-two.vercel.app/login"],
     methods: ["POST", "GET"],
-    credentials: true
-  }
-));
+    credentials: true,
+  })
+);
 
 // Connection to Database
 
