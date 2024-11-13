@@ -39,13 +39,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 
-app.use(userPath);
-app.use(authPath);
-app.use(commentsPath);
-app.use(followersPath);
-app.use(likesPath);
-app.use(postsPath);
-app.use(savedPath);
+app.use("/api/user", userPath);
+app.use("/api/auth", authPath);
+app.use("/api/comments", commentsPath);
+app.use("/api/followers", followersPath);
+app.use("/api/likes", likesPath);
+app.use("/api/poste", postsPath);
+app.use("/api/saves", savedPath);
 // Server Running
 
 app.listen(port, () => {
