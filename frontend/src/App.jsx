@@ -17,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Routes */}
+        {/* Public Routes index */}
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
 
