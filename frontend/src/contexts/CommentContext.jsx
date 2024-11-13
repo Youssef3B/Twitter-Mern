@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const CommentContext = createContext();
+axios.defaults.withCredentials = true;
 
 function CommentProvider({ children }) {
   const [allComments, setAllComments] = useState([]);

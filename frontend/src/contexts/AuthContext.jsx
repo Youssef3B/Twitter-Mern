@@ -4,6 +4,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const AuthContext = createContext();
+axios.defaults.withCredentials = true;
 
 function AuthUserProvider({ children }) {
   const [user, setUser] = useState();

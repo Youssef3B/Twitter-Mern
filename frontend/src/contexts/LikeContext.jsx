@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const LikeContext = createContext();
+axios.defaults.withCredentials = true;
 
 function LikeProvider({ children }) {
   const [likes, setLikes] = useState([]);

@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 
 const PostContext = createContext();
+axios.defaults.withCredentials = true;
 
 function PostProvider({ children }) {
   const [AllPosts, setAllPosts] = useState([]);

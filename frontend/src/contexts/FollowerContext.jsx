@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const FollowerContext = createContext();
+axios.defaults.withCredentials = true;
 
 function FollowerProvider({ children }) {
   const [allFollowers, setAllFollowers] = useState([]);
