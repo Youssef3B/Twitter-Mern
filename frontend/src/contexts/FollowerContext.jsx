@@ -8,7 +8,7 @@ function FollowerProvider({ children }) {
   const [allFollowers, setAllFollowers] = useState([]);
 
   async function getAllFollowers() {
-    const url = `https://twitter-mern-kappa.vercel.app/api/followers`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/followers`;
 
     try {
       const res = await axios.get(url);
@@ -21,7 +21,7 @@ function FollowerProvider({ children }) {
   }
 
   async function addAFollow(data) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/followers`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/followers`;
 
     try {
       const res = await axios.post(url, data);
@@ -35,7 +35,7 @@ function FollowerProvider({ children }) {
   }
 
   async function deleteFollow(userWhoFollow, userWhoFollowed) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/followers`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/followers`;
     try {
       const res = await axios.delete(url, {
         data: { userWhoFollow, userWhoFollowed },

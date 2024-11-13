@@ -9,7 +9,7 @@ function PostProvider({ children }) {
   const [AllPosts, setAllPosts] = useState([]);
   const [post, setPost] = useState();
   async function createPost(data) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/poste`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/poste`;
     try {
       const res = await axios.post(url, data);
       if (res) {
@@ -21,7 +21,7 @@ function PostProvider({ children }) {
   }
 
   async function getAllPosts() {
-    const url = `https://twitter-mern-kappa.vercel.app/api/poste`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/poste`;
     try {
       const res = await axios.get(url);
       if (res) {
@@ -38,7 +38,7 @@ function PostProvider({ children }) {
   }
 
   async function getPostFromHisId(id) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/poste/${id}`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/poste/${id}`;
     try {
       const res = await axios.get(url);
       if (res) {
@@ -50,7 +50,7 @@ function PostProvider({ children }) {
   }
 
   async function deletePost(id) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/poste/${id}`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/poste/${id}`;
     try {
       const res = await axios.delete(url);
       if (res) {
@@ -61,7 +61,7 @@ function PostProvider({ children }) {
     }
   }
   async function editPost(id, data) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/poste/${id}`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/poste/${id}`;
     try {
       const res = await axios.put(url, data, {
         headers: {

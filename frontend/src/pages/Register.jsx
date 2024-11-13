@@ -18,7 +18,8 @@ function Register() {
     e.preventDefault();
     const data = { fullName, userName, email, password };
     try {
-      const url = "https://twitter-mern-kappa.vercel.app/api/auth/register";
+      const url =
+        "https://twitter-mern-backend-nlub.onrender.com/api/auth/register";
       const res = await axios.post(url, data);
       if (res) {
         toast.success("Registration successful!");

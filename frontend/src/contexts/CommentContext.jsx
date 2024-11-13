@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 function CommentProvider({ children }) {
   const [allComments, setAllComments] = useState([]);
   async function CreateComment(data) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/comments`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/comments`;
 
     try {
       const res = await axios.post(url, data);
@@ -22,7 +22,7 @@ function CommentProvider({ children }) {
   }
 
   async function getAllComments() {
-    const url = `https://twitter-mern-kappa.vercel.app/api/comments`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/comments`;
     try {
       const res = await axios.get(url);
       if (res) {
@@ -34,7 +34,7 @@ function CommentProvider({ children }) {
   }
 
   async function deleteComment(id) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/comments/${id}`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/comments/${id}`;
     try {
       const res = await axios.delete(url);
       if (res) {

@@ -20,7 +20,7 @@ function SaveProvider({ children }) {
   }
 
   async function addSave(data) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/saves`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/saves`;
     try {
       const res = await axios.post(url, data);
       if (res) {
@@ -31,7 +31,7 @@ function SaveProvider({ children }) {
     }
   }
   async function deleteSave(userId, postId) {
-    const url = `https://twitter-mern-kappa.vercel.app/api/saves`;
+    const url = `https://twitter-mern-backend-nlub.onrender.com/api/saves`;
 
     // No need to pass userId and postId in the URL
 
