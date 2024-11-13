@@ -24,7 +24,7 @@ const port = process.env.Port || 5000;
 app.use(
   cors({
     origin: ["https://twitter-mern-frontend-two.vercel.app"],
-    methods: ["POST", "GET"],
+    methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true,
   })
 );
