@@ -19,7 +19,6 @@ const port = process.env.Port || 5000;
 
 // CORS Configuration
 const corsOptions = {
-  origin: ["https://front-inky-ten.vercel.app", "http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
   credentials: true,
