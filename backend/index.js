@@ -39,7 +39,7 @@ async function connectToDatabase() {
   }
 }
 
-// Initialize Express app
+// Initialize Express apps
 const app = express();
 
 // Enhanced CORS configuration
