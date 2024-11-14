@@ -31,7 +31,12 @@ mongoose
 // Init App
 const app = express();
 // Apply Middlewares
-app.use(cors());
+const corsConfig = {
+  origin: "*",
+  credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
+app.use(cors(corsConfig));
 
 app.use(express.json());
 app.use(cookieParser());
