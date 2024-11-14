@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /**
- * @path /api/user/allusers
+ * @path /api/user/allusers test
  * @method GET
  * @description Get All Users
  */
